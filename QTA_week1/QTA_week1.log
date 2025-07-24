@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.18)  22 JUL 2025 18:01
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.18)  24 JUL 2025 13:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/ods/Desktop/实习投递/QTA投递/QTA_week1
-(/Users/ods/Desktop/实习投递/QTA投递/QTA_week1.tex
+**/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week1/QTA_week1
+(/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week1/QTA_week1.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -594,27 +594,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [2]
 
 [3]
-Overfull \hbox (21.07874pt too wide) in paragraph at lines 175--176
+Overfull \hbox (21.07874pt too wide) in paragraph at lines 162--163
 [][] 
  []
 
 
-Overfull \hbox (21.07874pt too wide) in paragraph at lines 180--181
-[][] 
+Underfull \hbox (badness 10000) in paragraph at lines 167--169
+
  []
 
 
 
 [4]
-Overfull \hbox (21.07874pt too wide) in paragraph at lines 185--186
-[][] 
- []
-
-
-Overfull \hbox (21.07874pt too wide) in paragraph at lines 190--191
-[][] 
- []
-
 
 Package fontspec Info: 
 (fontspec)             Could not resolve font "STFangsong/BI" (it probably
@@ -652,16 +643,23 @@ Package fontspec Info:
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/07/14>
  ***********
-Package rerunfilecheck Info: File `QTA_week1.out' has not changed.
-(rerunfilecheck)             Checksum: CD6F3B201E8B5ACB7C779B110DB960A4;458.
+
+
+Package rerunfilecheck Warning: File `QTA_week1.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `QTA_week1.out':
+(rerunfilecheck)             Before: CD6F3B201E8B5ACB7C779B110DB960A4;458
+(rerunfilecheck)             After:  B423C727C9019F9E5747AE896FAD1944;402.
  ) 
 Here is how much of TeX's memory you used:
- 17160 strings out of 473832
- 367379 string characters out of 5729481
- 791856 words of memory out of 5000000
- 39966 multiletter control sequences out of 15000+600000
+ 17115 strings out of 473832
+ 364104 string characters out of 5729481
+ 793856 words of memory out of 5000000
+ 39921 multiletter control sequences out of 15000+600000
  568627 words of font info for 107 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,13n,114p,417b,977s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,13n,114p,438b,974s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on QTA_week1.pdf (7 pages).
