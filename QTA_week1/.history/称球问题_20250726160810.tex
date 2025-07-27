@@ -1,0 +1,132 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+% --- 使用的包 ---
+\usepackage{amsmath}   % 提供高级数学公式环境
+\usepackage{amssymb}   % 提供数学符号
+\usepackage{geometry}  % 用于设置页面边距
+\usepackage{ctex}   
+\usepackage{amsmath}   % 提供高级数学公式环境，例如 pmatrix
+\usepackage{amssymb}   % 提供数学符号
+\usepackage{geometry}  % 用于设置页面边距 
+\usepackage{array}     % 用于设置表格列格式
+\usepackage{booktabs}  % 提供更专业的表格样式
+\usepackage{multirow}  % 用于合并表格行
+\usepackage{graphicx}  % 用于插入图片
+\usepackage{float}     % 用于设置图片浮动位置
+\usepackage{caption}   % 用于设置图片标题
+% --- 页面布局设置 ---
+\geometry{a4paper, margin=1in}
+
+% --- 文档标题信息 ---
+\title{称球问题}
+\author{欧岱松}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{核心基础}
+
+我们构建单次称重物理结果的数学关系式，来描述每一次的称重结果。
+我们定义：
+\begin{itemize}
+    \item $s_j$: 第 $j$ 号球的真实状态。$s_j=1$ 表示该球\textbf{偏重}，$s_j=-1$ 表示该球\textbf{偏轻}。
+    \item $W_j$: 在某一次称重中，对第 $j$ 号球的放置方式。$W_j=-1$ 表示放\textbf{左盘}，$W_j=1$ 表示放\textbf{右盘}，$W_j=0$ 表示\textbf{不放}。
+    \item $r$: 本次称重的结果。$r=-1$ 表示\textbf{左盘重}，$r=1$ 表示\textbf{右盘重}，$r=0$ 表示\textbf{平衡}。
+\end{itemize}
+通过简单的分析，我们可以得到以下恒成立的公式：
+\begin{equation}
+    r = W_j \times s_j
+\end{equation}
+
+具体来说，
+\begin{itemize}
+    \item 若球 $j$ \textbf{偏重} ($s_j=1$)，放在\textbf{左盘} ($W_j=-1$)，则左盘会下沉，结果 $r=-1$。公式：$-1 \times 1 = -1$。 \textbf{吻合}。
+    \item 若球 $j$ \textbf{偏轻} ($s_j=-1$)，放在\textbf{左盘} ($W_j=-1$)，则左盘会上升（右盘下沉），结果 $r=1$。公式：$-1 \times -1 = 1$。 \textbf{吻合}。
+    \item 若球 $j$ 放在\textbf{右盘} ($W_j=1$) 且\textbf{偏重} ($s_j=1$)，则右盘下沉，结果 $r=1$。公式：$1 \times 1 = 1$。 \textbf{吻合}。
+    \item 若球 $j$ \textbf{不放}在天平上 ($W_j=0$)，则天平平衡，结果 $r=0$。公式：$0 \times s_j = 0$。 \textbf{吻合}。
+\end{itemize}
+
+\section{问题描述}
+
+根据信息论，我们可以通过三次称重来确定次品球。如果第 $j$ 号球是次品，那么上述的核心公式必须对每一次称重都成立。设第 $i$ 次称重的结果为 $r_i$，对球 $j$ 的放置为 $W_{ij}$，则有：
+\begin{align*}
+    \text{第1次称重: } & r_1 = W_{1j} \times s_j \\
+    \text{第2次称重: } & r_2 = W_{2j} \times s_j \\
+    \text{第3次称重: } & r_3 = W_{3j} \times s_j
+\end{align*}
+
+更进一步，
+\begin{itemize}
+    \item 我们将三次称重的实际结果组合成一个\textbf{结果向量} $R = (r_1, r_2, r_3)^T$。
+    \item 我们将对第 $j$ 号球的三次称重方案组合成一个\textbf{方案向量} $W_j = (W_{1j}, W_{2j}, W_{3j})^T$。这个向量就是我们预先设计的称重矩阵 $W$ 的第 $j$ 列。
+\end{itemize}
+于是，上面三个的方程可以被合并成一个方程：
+\begin{equation}
+    \mathbf{R} = s_j \cdot \mathbf{W_j}
+\end{equation}
+
+故而原问题被我们转化成如何设计一个方案矩阵，并根据结果来反推出球的状态向量，又因为状态向量为一个全一向量或者0向量，故而最终的次品的方案向量一定是满足
+$R = k \times W_j$（并且$k \in \{-1, 1\}$）。
+\section{问题求解}
+
+问题求解的本质就是在**求解方程 (2)**。在这个方程中：
+\begin{itemize}
+    \item 向量 $\mathbf{R}$ 是我们通过实际称重得到的。
+    \item 球的编号 $j$ 和它的状态 $s_j$ 是我们想要找出的。
+\end{itemize}
+由于球的状态 $s_j$ 只有三种可能（1 ， -1 或 0 ），故而当方案向量和结果向量不满足$R = k \times W_j$（并且$k \in \{-1, 1\}$）时，其必然不是次品球。接下来我们需要说明，选定特定的方案矩阵，找出与结果向量共线性的向量，这个解存在且唯一。
+
+
+
+\section{一个可行的最优策略矩阵}
+
+一个经典 $3 \times 12$ 称重矩阵 $W$ 如下。
+
+\subsection*{称重方案描述}
+\begin{itemize}
+    \item \textbf{第1次称重}: \{1, 2, 3, 4\} vs \{5, 6, 7, 8\}
+    \item \textbf{第2次称重}: \{1, 2, 5, 9\} vs \{3, 6, 7, 10\}
+    \item \textbf{第3次称重}: \{1, 3, 5, 11\} vs \{4, 6, 9, 12\}
+\end{itemize}
+
+\subsection*{对应的称重矩阵 $W$}
+下面的矩阵精确地描述了上述方案，其中行代表称重次数，列代表球的编号。
+\begin{table}[h]
+    \centering
+    \caption{称重方案设计（12球问题）}
+    \begin{tabular}{|c|cccccccccccc|}
+    \hline
+    \textbf{称重次数} & \multicolumn{12}{c|}{\textbf{球编号}} \\
+    \cline{2-13}
+     & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+    \hline
+    第一次称重 & $-1$ & $-1$ & $-1$ & $-1$ & $1$ & $1$ & $1$ & $1$ & $0$ & $0$ & $0$ & $0$ \\
+    第二次称重 & $-1$ & $-1$ & $1$ & $0$ & $-1$ & $1$ & $1$ & $0$ & $-1$ & $1$ & $0$ & $0$ \\
+    第三次称重 & $-1$ & $0$ & $-1$ & $1$ & $-1$ & $1$ & $0$ & $0$ & $1$ & $0$ & $-1$ & $1$ \\
+    \hline
+    \end{tabular}
+    \end{table}
+由于我们设计的称重矩阵 $W$ 时满秩，因此这个求解过程得到的结果必然是唯一的，并且从直观上来讲，因为只有一个次品球，所以结果向量只与次品球的方案向量相关，所以结果向量至多有18种可能小于列向量的24种可能,故而这个解的存在是可能的。
+比如当我的结果向量时\((1,-1,-1)\)那么我可以知道球5是次品，且偏重。
+
+
+\section{矩阵设计的原则}
+
+为了能唯一地找出次品球和它的状态，我们的称重矩阵 $\mathbf{W}$ 必须满足以下设计原则：
+
+\begin{itemize}
+    
+    
+    \item
+    矩阵的每一列向量必须是唯一的。如果两列相同（$\mathbf{W_j} = \mathbf{W_k}$），我们就无法区分 $j$ 号球和 $k$ 号球。
+
+    \item
+    任何一列向量都不能是另一列向量的负向量 ($\mathbf{W_j} \neq -\mathbf{W_k}$)。否则，如果我们的结果是 $\mathbf{R} = \mathbf{W_j}$，我们将无法判断是“$j$号球偏重”还是“$k$号球偏轻”（因为 $\mathbf{R} = -\mathbf{W_k}$ 也成立）。
+
+    \item
+    每一列都不能是零向量 $(0,0,0)^T$。否则那个球就从未上过天平，我们无法判断它是否有问题。
+    
+    \end{itemize}
+\end{document}

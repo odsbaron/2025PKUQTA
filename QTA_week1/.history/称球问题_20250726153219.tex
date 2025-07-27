@@ -1,0 +1,81 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+% --- 使用的包 ---
+\usepackage{amsmath}   % 提供高级数学公式环境
+\usepackage{amssymb}   % 提供数学符号
+\usepackage{geometry}  % 用于设置页面边距
+\usepackage{ctex}
+% --- 页面布局设置 ---
+\geometry{a4paper, margin=1in}
+
+% --- 文档标题信息 ---
+\title{称球问题}
+\author{欧岱松}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{核心基础}
+
+我们构建单次称重物理结果的数学关系式，来描述每一次的称重结果。
+我们定义：
+\begin{itemize}
+    \item $s_j$: 第 $j$ 号球的真实状态。$s_j=1$ 表示该球\textbf{偏重}，$s_j=-1$ 表示该球\textbf{偏轻}。
+    \item $W_j$: 在某一次称重中，对第 $j$ 号球的放置方式。$W_j=-1$ 表示放\textbf{左盘}，$W_j=1$ 表示放\textbf{右盘}，$W_j=0$ 表示\textbf{不放}。
+    \item $r$: 本次称重的结果。$r=-1$ 表示\textbf{左盘重}，$r=1$ 表示\textbf{右盘重}，$r=0$ 表示\textbf{平衡}。
+\end{itemize}
+通过简单的分析，我们可以得到以下恒成立的公式：
+\begin{equation}
+    r = W_j \times s_j
+\end{equation}
+
+具体来说，
+
+\section{问题描述}
+
+由我们的最优策略包含三次称重。如果第 $j$ 号球是次品，那么上述的核心公式必须对每一次称重都成立。设第 $i$ 次称重的结果为 $r_i$，对球 $j$ 的放置为 $W_{ij}$，则有：
+\begin{align*}
+    \text{第1次称重: } & r_1 = W_{1j} \times s_j \\
+    \text{第2次称重: } & r_2 = W_{2j} \times s_j \\
+    \text{第3次称重: } & r_3 = W_{3j} \times s_j
+\end{align*}
+
+\section{用向量语言简化问题}
+
+上述三个独立的方程可以用向量代数进行优雅地合并。
+\begin{itemize}
+    \item 我们将三次称重的实际结果组合成一个\textbf{结果向量} $R = (r_1, r_2, r_3)^T$。
+    \item 我们将对第 $j$ 号球的三次称重方案组合成一个\textbf{方案向量} $W_j = (W_{1j}, W_{2j}, W_{3j})^T$。这个向量就是我们预先设计的称重矩阵 $W$ 的第 $j$ 列。
+\end{itemize}
+于是，上面三个独立的方程可以被合并成一个简洁而强大的向量方程：
+\begin{equation}
+    \mathbf{R} = s_j \cdot \mathbf{W_j}
+\end{equation}
+
+\section{“查找匹配”的真正含义}
+
+“查找匹配”这一操作，其本质就是在**求解方程 (2)**。在这个方程中：
+\begin{itemize}
+    \item 向量 $\mathbf{R}$ 是我们通过实际称重得到的、\textbf{已知的}。
+    \item 球的编号 $j$ 和它的状态 $s_j$ 是我们想要找出的\textbf{未知的}。
+\end{itemize}
+由于球的状态 $s_j$ 只有两种可能（1 或 -1），我们可以对这个方程进行分类讨论来求解。
+
+\subsection{情况A：如果次品球是偏重的}
+在这种情况下，$s_j = 1$。我们的核心方程 (2) 就简化为：
+$$ \mathbf{R} = 1 \cdot \mathbf{W_j} \implies \mathbf{R} = \mathbf{W_j} $$
+\textbf{语言解读}：如果我们得到的实际结果向量 $\mathbf{R}$，与我们称重矩阵中第 $j$ 列的方案向量 $\mathbf{W_j}$ \textbf{完全相同}，那么我们就可以断定：第 $j$ 号球是次品，并且它是偏重的。
+
+\subsection{情况B：如果次品球是偏轻的}
+在这种情况下，$s_j = -1$。我们的核心方程 (2) 就简化为：
+$$ \mathbf{R} = -1 \cdot \mathbf{W_j} \implies \mathbf{R} = -\mathbf{W_j} $$
+\textbf{语言解读}：如果我们得到的实际结果向量 $\mathbf{R}$，与我们称重矩阵中第 $j$ 列的方案向量 $\mathbf{W_j}$ \textbf{正好是正负相反}，那么我们就可以断定：第 $j$ 号球是次品，并且它是偏轻的。
+
+\section{结论}
+综上所述，“查找匹配”操作并非一个随意的比对过程，而是求解一个被我们精心设计好的向量方程的直观方法。我们拿着已知的称重结果 $\mathbf{R}$，逐一去检验称重矩阵中的每一列 $\mathbf{W_j}$，看它满足的是情况A还是情况B。
+
+由于我们设计的称重矩阵 $W$ 保证了每一列向量都是独一无二的，且没有一列是另一列的负向量，因此这个求解过程得到的结果必然是**唯一**的。这就从数学上保证了我们能准确无误地找出那个唯一的次品球和它的状态。
+
+\end{document}
