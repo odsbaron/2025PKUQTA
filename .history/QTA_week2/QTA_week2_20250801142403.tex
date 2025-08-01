@@ -125,13 +125,12 @@ $$P(n = k) = P(b_3b_2b_1b_0 \text{的二进制表示为} k) = \left(\frac{1}{2}\
 (2)小U又剪了一个边长为1的小正方形C, 现在让小正方形C在大圆B的圆周上移动一周 (保持正方形始终直立, 如图3), 请聪明的你帮小U算一算: 小正方形C平移一周所覆盖区域的面积是多少?
 
 如图3所示，我们可以将正方形四个顶点，分别沿着四分之一圆周移动，并形成一个圆弧的平移，接着正方形在通过平移进入下一个圆周周期。为了简便计算，我们考虑将其补成一个12*12的正方形，再减去四周的圆弧和内部圆形即可。
-$$
 \begin{align}
-    A &= 12^2 - (10^2-25\times \pi) -  25\tiems \pi\\
+    A &= 12^2 - (10^2-25\times \pi) -  25\pi\\
     &= 44 \\
+
 \end{align}
-$$
-从而得到，围成的面积为44。
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\linewidth]{coordinate_plane.png}
@@ -292,18 +291,19 @@ $$E(y_{j}|w_{j}) = \alpha_{0} + \alpha_{1}w_{j}$$
     \item 对于任何一个随机点 $P_i$ ($i \neq 1$)，它落在 $H_1$ 内的概率是 $\frac{1}{2}$。
     \item 因为这 $N-1$ 个点的选择是相互独立的，所以它们全部落在 $H_1$ 内的概率是 $(\frac{1}{2})^{N-1}$。
 \end{itemize}
-具体来说，我们每次将N个点随机落在圆周上，我们定义：“从 $P_i$点开始，顺时针方向180度（半圆）内，包含了所有其他的 N-1 个点”为事件$A_i$。
-
+并计这个事件为事件$A_i$，
+\begin{itemize}
+    \item $A_1$: 所有点都落在以 $P_1$ 为起点的顺时针半圆内。
+    \item $A_2$: 所有点都落在以 $P_2$ 为起点的顺时针半圆内。
+    \item \dots
+    \item $A_N$: 所有点都落在以 $P_N$ 为起点的顺时针半圆内。
+\end{itemize}
 注意到，这N个事件的互斥的，且根据对称性，其概率相同均为$(\frac{1}{2})^{N-1}$。
-$$ P(\text{所有点在同一个半圆内}) = \sum_{i=1}^{N} P(A_i) = N \times \left(\frac{1}{2}\right)^{N-1} $$
 \subsubsection*{(2)}
 求知欲很强的小U继续探索, 假如问题变成3维球体呢? 即在球面上随机取N个点, 它们在同一个半球内的概率有多大?
 
-事件是“所有N个点都落在某一个半球内”，同样，我们先任意选择一个点 $P_1$。这个点 $P_1$ 可以被看作是某个半球的“极点”。
-
-这个半球 $H_1$ 就是由过球心且垂直于 $\vec{OP_1}$ 向量的平面所定义的、$P_1$ 所在的那一半球面。
-要让所有其他 $N-1$ 个点都落在这个特定的半球 $H_1$ 内，概率为$(\frac{1}{2})^{N-1}$。
-我们同样定义 $N$ 个事件 $A_i$：所有其他 $N-1$ 个点都落在以 $P_i$ 为“极点”的那个半球内。正如在二维情况中一样，这些事件也是相互排斥的。
+事件是“所有N个点都落在某一个半球内”，同样，我们先任意选择一个点 $P_1$。这个点 $P_1$ 可以被看作是某个半球的“极点”。这个半球 $H_1$ 就是由过球心且垂直于 $\vec{OP_1}$ 向量的平面所定义的、$P_1$ 所在的那一半球面。
+要让所有其他 $N-1$ 个点都落在这个特定的半球 $H_1$ 内，概率为$(\frac{1}{2})^{N-1}$。我们同样定义 $N$ 个事件 $A_i$：所有其他 $N-1$ 个点都落在以 $P_i$ 为“极点”的那个半球内。正如在二维情况中一样，这些事件也是相互排斥的。
 $$ P(\text{所有点在同一个半球内}) = \sum_{i=1}^{N} P(A_i) = N \times \left(\frac{1}{2}\right)^{N-1} $$
 \subsubsection*{(3) 【拓展思考题】}
 在n维空间的球面上随机取N个点, 它们在同一个半球内的概率有多大?
@@ -394,20 +394,20 @@ $S_2 = \text{HHHHHHHHHHHH}$, $L=12$。
         &= \frac{1-p^{12}}{q \cdot p^{12}}
 \end{align*}
 
-\textbf{模式 3: \texttt{HTHTHTTHHTHT}}
+\textbf{模式 3: \texttt{HTHTHTTHTHT}}
 
-$S_3 = \text{HTHTHTTHHTHT}$, $L=12$。
-我们需要逐个检查其重叠情况：
+$S_3 = \text{HTHTHTTHTHT}$, $L=11$。
+我们需要仔细检查其重叠情况：
 \begin{itemize}
     \item $k=2$: HT $==$ HT.
     \item $k=4$: HTHT $==$ HTHT.
-    % \item $k=9$: HTHTHTTHT $==$ HTHTHTTHT.
-    \item $k=12$: 整个模式自身重叠。
+    \item $k=9$: HTHTHTTHT $==$ HTHTHTTHT.
+    \item $k=11$: 整个模式自身重叠。
 \end{itemize}
 其他长度的 $k$ 均不构成重叠。因此，期望值为这四项贡献之和：
 \begin{align*}
-    E_3 &= \frac{1}{P(\text{HT})} + \frac{1}{P(\text{HTHT})}  + \frac{1}{P(\text{HTHTHTTHTHT})} \\
-        &= \frac{1}{pq} + \frac{1}{p^2q^2}  + \frac{1}{p^6q^6}
+    E_3 &= \frac{1}{P(\text{HT})} + \frac{1}{P(\text{HTHT})} + \frac{1}{P(\text{HTHTHTTHT})} + \frac{1}{P(\text{HTHTHTTHTHT})} \\
+        &= \frac{1}{pq} + \frac{1}{p^2q^2} + \frac{1}{p^5q^4} + \frac{1}{p^6q^5}
 \end{align*}
 
 

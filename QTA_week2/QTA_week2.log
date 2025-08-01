@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.18)  30 JUL 2025 13:10
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.18)  1 AUG 2025 16:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -480,11 +480,39 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 ]
+
+/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:132: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.132 \end{align}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:132: Undefined control sequence.
+<argument> ...2 - (10^2-25\times \pi ) - 25\tiems 
+                                                  \pi \\ &= 44 \\ 
+l.132 \end{align}
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+File: coordinate_plane.png Graphic file (type bmp)
+<coordinate_plane.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 File: Figure1.png Graphic file (type bmp)
 <Figure1.png>
 File: Figure2.png Graphic file (type bmp)
 <Figure2.png>
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -531,7 +559,7 @@ Package fontspec Info:
 
 [7]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.53937> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 367.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 371.
 
 
 [8]
@@ -542,27 +570,14 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.53937> not available
 
 [11]
 
-/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:658: Package amsmath Error: Erroneous nesting of equation structures;
+/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:663: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.658 \end{align*}
-                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:670: Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.670 \end{align*}
+l.663 \end{align*}
                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -571,9 +586,25 @@ If that doesn't work, type  X <return>  to quit.
 
 [12]
 
+/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:675: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.675 \end{align*}
+                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+
 [13]
 
-[14] (./QTA_week2.aux)
+[14]
+
+[15] (./QTA_week2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
@@ -584,12 +615,12 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 11122 strings out of 473832
- 282366 string characters out of 5729481
- 1332624 words of memory out of 5000000
- 34015 multiletter control sequences out of 15000+600000
+ 11187 strings out of 473832
+ 286660 string characters out of 5729481
+ 1343150 words of memory out of 5000000
+ 34079 multiletter control sequences out of 15000+600000
  568299 words of font info for 110 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,20n,114p,415b,1621s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,20n,114p,415b,1748s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on QTA_week2.pdf (14 pages).
+Output written on QTA_week2.pdf (15 pages).

@@ -54,7 +54,7 @@
 \subsection*{1. 随机数}
 小U有一个质地不均匀的硬币, 已知这枚硬币正面朝上的概率$p$不是0或0.5, 但不知道确切的概率, 可以只用这枚硬币帮小U生成100个0-15之间均匀分布的随机整数吗? 小U是个追求严谨的小朋友, 如果可以, 需要聪明的你证明这种策略下生成的随机数的分布严格服从上述要求; 如果不可以, 也请给出证明。
 
-这个问题的核心在于如何利用有偏的随机源来构建概率均等的随机数，我们考虑如下策略，将硬币连续抛掷两次 ：
+这个问题的核心在于如何利用有篇的随机源来构建概率均等的随机数，我们考虑如下策略，将硬币连续抛掷两次 ：
 \begin{itemize}
     \item 如果结果是 正-反 (HT)，我们就将其记为 0。
 
@@ -113,31 +113,26 @@ $$P(n = k) = P(b_3b_2b_1b_0 \text{的二进制表示为} k) = \left(\frac{1}{2}\
 
 \subsection*{2. 剪纸转圈圈}
 
-(1) 小U在做剪纸小游戏, 他先剪了一大一小两个圆, 如图2所示, 其中圆A的半径为1, 圆B的半径为5。现在让小圆A绕着大圆B滚动旋转, 请问小圆A旋转多少圈后其圆心将再次到达起点?
+(1) 小U在做剪纸小游戏, 他先剪了一大一小两个圆, 如图1所示, 其中圆A的半径为1, 圆B的半径为5。现在让小圆A绕着大圆B滚动旋转, 请问小圆A旋转多少圈后其圆心将再次到达起点?
 
-\textbf{我们在这里默认，小圆带动大圆的滚动旋转会使得大圆发生相应的滚动（否则，这个问题是平凡的，即5圈），进一步可以将小圆的旋转进行分解}
+\textbf{我们可以将小圆的旋转进行分解}
 \begin{itemize}
     \item \textbf{小圆滚动产生的自转}：这部分等于两圆周长之比，即 $C_B / C_A = (2\pi R)/(2\pi r) = R/r = 5/1 = 5$ 圈。 
     \item \textbf{公转产生的自转}：小圆A的圆心绕大圆B的圆心完成了一整个圆周运动，这个公转本身会带来额外的1圈自转。
 \end{itemize}
 总圈数 = 滚动自转 + 公转自转 = $5 + 1 = 6$ 圈。
 
-(2)小U又剪了一个边长为1的小正方形C, 现在让小正方形C在大圆B的圆周上移动一周 (保持正方形始终直立, 如图3), 请聪明的你帮小U算一算: 小正方形C平移一周所覆盖区域的面积是多少?
+(2)小U又剪了一个边长为1的小正方形C, 现在让小正方形C在大圆B的圆周上移动一周 (保持正方形始终直立, 如图2), 请聪明的你帮小U算一算: 小正方形C平移一周所覆盖区域的面积是多少?
 
-如图3所示，我们可以将正方形四个顶点，分别沿着四分之一圆周移动，并形成一个圆弧的平移，接着正方形在通过平移进入下一个圆周周期。为了简便计算，我们考虑将其补成一个12*12的正方形，再减去四周的圆弧和内部圆形即可。
-$$
-\begin{align}
-    A &= 12^2 - (10^2-25\times \pi) -  25\tiems \pi\\
-    &= 44 \\
-\end{align}
-$$
-从而得到，围成的面积为44。
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\linewidth]{coordinate_plane.png}
-    \caption{物理情景示意图}
-    \label{fig:fig3}
-\end{figure}
+我们考虑微元法进行求解
+
+\begin{enumerate}
+    \item 将正方形的运动分解为当其中心沿着圆周移动一个无穷小的角度 $d\theta$ 时的过程。
+    \item 计算微元面积 $dA$计算在这个无穷小角度 $d\theta$ 内，正方形所扫过的面积 $dA$。
+    \item 积分求和：将微元面积 $dA$ 从 $0$ 到 $2\pi$ (一整圈) 进行定积分，得出总面积 $A$。
+\end{enumerate}
+具体来说，我们可以把正方形扫过的这片极薄的“切片”区域，看作是一个极薄的环形扇区。
+这个环形扇区的面积，等于由外边界扫过的扇区面积减去由内边界扫过的扇区面积。一个半径为 $r$、圆心角为 $d\theta$ 的扇区面积是 $\frac{1}{2}r^2 d\theta$。
 
 
 \begin{figure}[h!]
@@ -292,18 +287,19 @@ $$E(y_{j}|w_{j}) = \alpha_{0} + \alpha_{1}w_{j}$$
     \item 对于任何一个随机点 $P_i$ ($i \neq 1$)，它落在 $H_1$ 内的概率是 $\frac{1}{2}$。
     \item 因为这 $N-1$ 个点的选择是相互独立的，所以它们全部落在 $H_1$ 内的概率是 $(\frac{1}{2})^{N-1}$。
 \end{itemize}
-具体来说，我们每次将N个点随机落在圆周上，我们定义：“从 $P_i$点开始，顺时针方向180度（半圆）内，包含了所有其他的 N-1 个点”为事件$A_i$。
-
+并计这个事件为事件$A_i$，
+\begin{itemize}
+    \item $A_1$: 所有点都落在以 $P_1$ 为起点的顺时针半圆内。
+    \item $A_2$: 所有点都落在以 $P_2$ 为起点的顺时针半圆内。
+    \item \dots
+    \item $A_N$: 所有点都落在以 $P_N$ 为起点的顺时针半圆内。
+\end{itemize}
 注意到，这N个事件的互斥的，且根据对称性，其概率相同均为$(\frac{1}{2})^{N-1}$。
-$$ P(\text{所有点在同一个半圆内}) = \sum_{i=1}^{N} P(A_i) = N \times \left(\frac{1}{2}\right)^{N-1} $$
 \subsubsection*{(2)}
 求知欲很强的小U继续探索, 假如问题变成3维球体呢? 即在球面上随机取N个点, 它们在同一个半球内的概率有多大?
 
-事件是“所有N个点都落在某一个半球内”，同样，我们先任意选择一个点 $P_1$。这个点 $P_1$ 可以被看作是某个半球的“极点”。
-
-这个半球 $H_1$ 就是由过球心且垂直于 $\vec{OP_1}$ 向量的平面所定义的、$P_1$ 所在的那一半球面。
-要让所有其他 $N-1$ 个点都落在这个特定的半球 $H_1$ 内，概率为$(\frac{1}{2})^{N-1}$。
-我们同样定义 $N$ 个事件 $A_i$：所有其他 $N-1$ 个点都落在以 $P_i$ 为“极点”的那个半球内。正如在二维情况中一样，这些事件也是相互排斥的。
+事件是“所有N个点都落在某一个半球内”，同样，我们先任意选择一个点 $P_1$。这个点 $P_1$ 可以被看作是某个半球的“极点”。这个半球 $H_1$ 就是由过球心且垂直于 $\vec{OP_1}$ 向量的平面所定义的、$P_1$ 所在的那一半球面。
+要让所有其他 $N-1$ 个点都落在这个特定的半球 $H_1$ 内，概率为$(\frac{1}{2})^{N-1}$。我们同样定义 $N$ 个事件 $A_i$：所有其他 $N-1$ 个点都落在以 $P_i$ 为“极点”的那个半球内。正如在二维情况中一样，这些事件也是相互排斥的。
 $$ P(\text{所有点在同一个半球内}) = \sum_{i=1}^{N} P(A_i) = N \times \left(\frac{1}{2}\right)^{N-1} $$
 \subsubsection*{(3) 【拓展思考题】}
 在n维空间的球面上随机取N个点, 它们在同一个半球内的概率有多大?
@@ -324,20 +320,20 @@ $$ P(\text{所有点在同一个超半球内}) = \sum_{i=1}^{N} P(A_i) = N \time
 
 为了应用鞅理论，我们构造一个如下的假想公平赌局：
 \begin{enumerate}
-    \item \textbf{赌徒入场}：在每次投掷 $n=1, 2,  \dots$ 开始之前，都有一位新的赌徒 $C_n$ 加入赌局，并下注 1 元。
+    \item \textbf{赌徒入场}：在每次投掷 $n=1, 2, 3, \dots$ 开始之前，都有一位新的赌徒 $C_n$ 加入赌局，并下注 1 元。
     \item \textbf{押注策略}：所有赌徒都采用相同的策略。赌徒 $C_n$ 在他入场时（即第 $n$ 次投掷），押注该次投掷结果为模式的第一个字符 $s_1$。如果他赢了，他将所有赢得的钱押在下一次（第 $n+1$ 次）投掷的结果是 $s_2$ 上，以此类推。只要输一次，他就失去所有钱并出局。
     \item \textbf{公平赔率}：为了使赌局对赌场和赌徒双方都公平，对于一次成功的押注，其赔付规则是：若押注的事件发生概率为 $P_e$，则 $1$ 元的赌注在成功后会变为 $1/P_e$ 元。
 \end{enumerate}
 在这个设定下，任何一次押注的期望净收益都为零，因此整个系统是公平的。
 
 
-\textbf{7.1.1 构造鞅过程：}
+\textbf{鞅过程的建立：}
 
 令 $\mathcal{W}_n$ 表示在第 $n$ 次投掷结束后，赌场的累计净收益。这个随机过程 $\{\mathcal{W}_n\}_{n \ge 0}$ 是一个鞅（Martingale），因为它满足鞅性质：
 $$ E[\mathcal{W}_{n+1} | \mathcal{F}_n] = \mathcal{W}_n $$
 其中 $\mathcal{F}_n$ 代表直到时间 $n$ 的所有历史信息。由于赌局是公平的，赌场的期望收益在任何时刻都应保持不变。初始时 $\mathcal{W}_0 = 0$，故 $E[\mathcal{W}_n] = 0$ 对所有 $n$ 成立。
 
-\textbf{7.1.2 应用鞅停时定理进行求解：}
+\textbf{应用鞅停时定理进行求解：}
 
 我们定义一个停时 $\tau$ 为模式 $S$ 首次出现的时刻。即：
 $$ \tau = \min\{ n \ge L : X_{n-L+1} \dots X_n = S \} $$
@@ -366,7 +362,7 @@ $$ E[\text{赌场在 }\tau\text{ 时刻的总收入}] = E[\text{赌场在 }\tau\
 $$ E[\tau] = \sum_{k=1}^{L} \frac{\mathbb{I}(s_1\dots s_k = s_{L-k+1}\dots s_L)}{P(s_1\dots s_k)} $$
 其中 $\mathbb{I}(\cdot)$ 是指示函数，当条件为真时取值为 1，否则为 0。
 
-\textbf{7.1.3 具体模式匹配问题求解}
+\textbf{具体模式匹配问题求解}
 
 \textbf{模式 1: \texttt{HHHHHHTTTTTT}}
 
@@ -394,20 +390,19 @@ $S_2 = \text{HHHHHHHHHHHH}$, $L=12$。
         &= \frac{1-p^{12}}{q \cdot p^{12}}
 \end{align*}
 
-\textbf{模式 3: \texttt{HTHTHTTHHTHT}}
-
-$S_3 = \text{HTHTHTTHHTHT}$, $L=12$。
-我们需要逐个检查其重叠情况：
+\textbf{模式 3: \texttt{HTHTHTTHTHT}}
+$S_3 = \text{HTHTHTTHTHT}$, $L=11$。
+我们需要仔细检查其重叠情况：
 \begin{itemize}
     \item $k=2$: HT $==$ HT.
     \item $k=4$: HTHT $==$ HTHT.
-    % \item $k=9$: HTHTHTTHT $==$ HTHTHTTHT.
-    \item $k=12$: 整个模式自身重叠。
+    \item $k=9$: HTHTHTTHT $==$ HTHTHTTHT.
+    \item $k=11$: 整个模式自身重叠。
 \end{itemize}
 其他长度的 $k$ 均不构成重叠。因此，期望值为这四项贡献之和：
 \begin{align*}
-    E_3 &= \frac{1}{P(\text{HT})} + \frac{1}{P(\text{HTHT})}  + \frac{1}{P(\text{HTHTHTTHTHT})} \\
-        &= \frac{1}{pq} + \frac{1}{p^2q^2}  + \frac{1}{p^6q^6}
+    E_3 &= \frac{1}{P(\text{HT})} + \frac{1}{P(\text{HTHT})} + \frac{1}{P(\text{HTHTHTTHT})} + \frac{1}{P(\text{HTHTHTTHTHT})} \\
+        &= \frac{1}{pq} + \frac{1}{p^2q^2} + \frac{1}{p^5q^4} + \frac{1}{p^6q^5}
 \end{align*}
 
 
@@ -439,215 +434,6 @@ $$ E_i = 1 + p \cdot E_{\text{next state if H}} + q \cdot E_{\text{next state if
     \item 形成新序列 $s_1...s_i + c$。
     \item 在这个新序列的所有后缀中，寻找一个能与模式 $S$ 的前缀相匹配的，并取其最长的匹配长度 $j$。系统则转移到状态 $S_j$。
 \end{itemize}
-
-\iffalse
-
-
-\section{实例演示：求解模式 \texttt{HHHH}}
-为清晰起见，我们以 $S = \text{HHHH}$ ($L=4$) 为例进行推导。
-\begin{itemize}
-    \item \textbf{状态}：$S_0, S_1(\text{H}), S_2(\text{HH}), S_3(\text{HHH}), S_4(\text{HHHH})$
-    \item \textbf{目标}：求 $E_0$。
-    \item \textbf{已知}：$E_4 = 0$。
-\end{itemize}
-我们从 $E_3$ 开始，倒序建立方程：
-\begin{itemize}
-    \item \textbf{从 $S_3$ (HHH) 出发}：
-        \begin{itemize}
-            \item 投 H (概率 p): 序列 HHHH，进入 $S_4$。
-            \item 投 T (概率 q): 序列 HHHT，最长前缀匹配为 0，回到 $S_0$。
-        \end{itemize}
-        $E_3 = 1 + p \cdot E_4 + q \cdot E_0 = 1 + q E_0$
-
-    \item \textbf{从 $S_2$ (HH) 出发}：
-        \begin{itemize}
-            \item 投 H (概率 p): 序列 HHH，进入 $S_3$。
-            \item 投 T (概率 q): 序列 HHT，回到 $S_0$。
-        \end{itemize}
-        $E_2 = 1 + p E_3 + q E_0$
-
-    \item \textbf{从 $S_1$ (H) 出发}：
-        \begin{itemize}
-            \item 投 H (概率 p): 序列 HH，进入 $S_2$。
-            \item 投 T (概率 q): 序列 HT，回到 $S_0$。
-        \end{itemize}
-        $E_1 = 1 + p E_2 + q E_0$
-
-    \item \textbf{从 $S_0$ (初始) 出发}：
-        \begin{itemize}
-            \item 投 H (概率 p): 序列 H，进入 $S_1$。
-            \item 投 T (概率 q): 序列 T，留在 $S_0$。
-        \end{itemize}
-        $E_0 = 1 + p E_1 + q E_0$
-\end{itemize}
-我们得到了一个关于 $E_0, E_1, E_2, E_3$ 的线性方程组。下面进行求解：
-\begin{align*}
-    \text{由 } E_0 \text{ 的方程可得: } (1-q)E_0 = 1 + pE_1 \implies pE_0 = 1 + pE_1 \implies E_0 = \frac{1}{p} + E_1 \\
-    \implies E_1 = E_0 - \frac{1}{p}
-\end{align*}
-将 $E_1$ 代入其方程来表示 $E_2$：
-\begin{align*}
-    pE_2 = E_1 - 1 - qE_0 = (E_0 - \frac{1}{p}) - 1 - qE_0 = (1-q)E_0 - 1 - \frac{1}{p} = pE_0 - 1 - \frac{1}{p} \\
-    \implies E_2 = E_0 - \frac{1}{p} - \frac{1}{p^2}
-\end{align*}
-同理，表示 $E_3$：
-\begin{align*}
-    pE_3 = E_2 - 1 - qE_0 = (E_0 - \frac{1}{p} - \frac{1}{p^2}) - 1 - qE_0 = pE_0 - 1 - \frac{1}{p} - \frac{1}{p^2} \\
-    \implies E_3 = E_0 - \frac{1}{p} - \frac{1}{p^2} - \frac{1}{p^3}
-\end{align*}
-最后，代入我们最早得到的 $E_3 = 1 + qE_0$：
-\begin{align*}
-    E_0 - \frac{1}{p} - \frac{1}{p^2} - \frac{1}{p^3} &= 1 + qE_0 \\
-    E_0(1-q) &= 1 + \frac{1}{p} + \frac{1}{p^2} + \frac{1}{p^3} \\
-    pE_0 &= 1 + \frac{1}{p} + \frac{1}{p^2} + \frac{1}{p^3} \\
-    E_0 &= \frac{1}{p} + \frac{1}{p^2} + \frac{1}{p^3} + \frac{1}{p^4}
-\end{align*}
-此结果与鞅方法得到的结果完全一致。
-\fi 
-
-\textbf{程序实现思路}
-我们可以将 $L$ 个关于 $E_0, \dots, E_{L-1}$ 的线性方程组表示为矩阵形式 $\mathbf{A} \mathbf{x} = \mathbf{b}$。
-\begin{itemize}
-    \item $\mathbf{x} = [E_0, E_1, \dots, E_{L-1}]^T$ 是我们要求的解向量。
-    \item $\mathbf{b} = [1, 1, \dots, 1]^T$ 是长度为 $L$ 的常数向量。
-    \item $\mathbf{A}$ 是一个 $L \times L$ 的系数矩阵。对于第 $i$ 行（代表 $E_i$ 的方程），我们将方程 $E_i = 1 + pE_j + qE_k$ 整理为 $E_i - pE_j - qE_k = 1$。
-        \begin{itemize}
-            \item 对角线元素 $A_{i,i}$ 初始为 1。
-            \item 若从状态 $i$ 投 H 后转移到状态 $j < L$，则 $A_{i,j}$ 减去 $p$。
-            \item 若从状态 $i$ 投 T 后转移到状态 $k < L$，则 $A_{i,k}$ 减去 $q$。
-        \end{itemize}
-\end{itemize}
-建立好矩阵 $\mathbf{A}$ 和向量 $\mathbf{b}$ 后，即可调用数值计算库求解 $\mathbf{x}$。
-\begin{lstlisting}[language=Python, caption={求解期望投掷次数的函数核心逻辑}]
-
-
-    import numpy as np
-
-    def get_next_state(pattern: str, current_len: int, next_char: str) -> int:
-        """
-        计算在给定当前匹配长度和下一个字符时，马尔可夫链的下一个状态。
-    
-        Args:
-            pattern (str): 目标模式，例如 "HTH"。
-            current_len (int): 当前已匹配的模式前缀的长度（即当前状态）。
-            next_char (str): 下一次投掷的实际结果 ('H' 或 'T')。
-    
-        Returns:
-            int: 转移后的新状态（即新的匹配长度）。
-        """
-        # 构造当前匹配序列加上新字符后的完整序列
-        sequence = pattern[:current_len] + next_char
-    
-        # 从最长的可能性开始，寻找新序列的后缀与模式前缀的最长匹配
-        # 这是马尔可夫链状态转移的核心逻辑
-        for length in range(len(sequence), 0, -1):
-            suffix = sequence[-length:]
-            prefix = pattern[:length]
-            if suffix == prefix:
-                return length  # 返回最长的匹配长度作为新状态
-    
-        return 0  # 如果没有任何匹配，回到初始状态 0
-    
-    def calculate_expected_flips_markov(pattern: str, p_heads: float) -> float:
-        """
-        使用吸收马尔可夫链模型计算首次出现特定模式的期望投掷次数。
-    
-        Args:
-            pattern (str): 由 'H' 和 'T' 组成的目标模式。
-            p_heads (float): 掷出正面 (H) 的概率。
-    
-        Returns:
-            float: 首次出现该模式的期望投掷次数。
-        """
-        L = len(pattern)
-        if L == 0:
-            return 0.0
-    
-        p_tails = 1.0 - p_heads
-        
-        # 我们要求解 E_0, E_1, ..., E_{L-1} 这 L 个变量。
-        # 吸收状态 E_L = 0。
-        # 方程组形式为 A * x = b，其中 x 是 [E_0, E_1, ..., E_{L-1}]^T
-        n_states = L
-        A = np.zeros((n_states, n_states))
-        b = np.ones(n_states)
-    
-        # 遍历每个状态 i (从 0 到 L-1)，为 E_i 建立一个方程
-        for i in range(n_states):
-            # 方程 E_i = 1 + p * E_{next_H} + q * E_{next_T}
-            # 整理为标准形式: E_i - p*E_{next_H} - q*E_{next_T} = 1
-            
-            # 1. 设置 E_i 的系数
-            A[i, i] = 1.0
-    
-            # 2. 计算掷出 H 后的转移
-            next_state_H = get_next_state(pattern, i, 'H')
-            if next_state_H < L:  # 如果不是吸收状态
-                A[i, next_state_H] -= p_heads
-    
-            # 3. 计算掷出 T 后的转移
-            next_state_T = get_next_state(pattern, i, 'T')
-            if next_state_T < L:  # 如果不是吸收状态
-                A[i, next_state_T] -= p_tails
-                
-        # 使用 numpy 求解线性方程组 A * x = b
-        try:
-            expected_values = np.linalg.solve(A, b)
-        except np.linalg.LinAlgError:
-            return float('inf') # 如果矩阵是奇异的，则无法求解
-    
-        # 我们要求的是从状态 0 开始的期望次数 E_0
-        return expected_values[0]
-    
-    ### 程序使用示例
-    
-    
-    if __name__ == "__main__":
-        # 设定硬币的概率
-        # 为了演示，我们假设是一个均匀硬币，p=0.5
-        # 你可以修改为任意 0 < p < 1 的值
-        p_h = 0.6
-        print(f"设定硬币掷出正面的概率 p = {p_h}\n")
-    
-        # 定义三个模式
-        patterns = [
-            "HHHHHHTTTTTT", # 1. 几乎不重叠
-            "HHHHHHHHHHHH", # 2. 高度重叠
-            "HTHTHTTHTHT"   # 3. 复杂重叠
-        ]
-    
-        for p_str in patterns:
-            print(f"--- 正在计算模式: {p_str} ---")
-            
-            # 使用马尔可夫链方法计算
-            expected_flips = calculate_expected_flips_markov(p_str, p_h)
-            
-            print(f"期望投掷次数为: {expected_flips:.2f}")
-            
-            # 为了对比，我们也可以用鞅方法的公式直接计算来验证
-            # (这部分仅为验证，核心是上面的马尔可夫方法)
-            martingale_result = 0
-            p_t = 1.0 - p_h
-            for k in range(1, len(p_str) + 1):
-                prefix = p_str[:k]
-                suffix = p_str[-k:]
-                if prefix == suffix:
-                    prob_prefix = 1.0
-                    for char in prefix:
-                        prob_prefix *= p_h if char == 'H' else p_t
-                    martingale_result += 1 / prob_prefix
-            
-            print(f"（使用鞅方法验证结果: {martingale_result:.2f}）")
-            print("-" * 30 + "\n")
-    
-        # 你也可以测试一个更短的、更有趣的模式
-        print("--- 正在计算模式: HTHT ---")
-        expected_flips_ht_ht = calculate_expected_flips_markov("HTHT", 0.5)
-        print(f"期望投掷次数为: {expected_flips_ht_ht:.2f}")
-        print("-" * 30 + "\n")
-
-
-\end{lstlisting}
 
 \section*{附录}
 
