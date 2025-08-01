@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.18)  1 AUG 2025 16:09
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.18)  1 AUG 2025 17:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -586,14 +586,14 @@ If that doesn't work, type  X <return>  to quit.
 
 [12]
 
-/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:675: Package amsmath Error: Erroneous nesting of equation structures;
+/Users/ods/Desktop/实习投递/QTA投递/2025PKUQTA/QTA_week2/QTA_week2.tex:676: Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
 
 See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.675 \end{align*}
+l.676 \end{align*}
                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
