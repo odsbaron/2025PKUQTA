@@ -1,0 +1,211 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{marginnote}
+
+\geometry{a4paper, margin=1in}
+
+% Style for code blocks
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+\geometry{a4paper, margin=1in}
+\title{QTA2025暑期求职笔试训练营-week3}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\section*{1. 聚会握手次数}
+
+侯哥和他的室友小y正在举办一个聚会,他邀请了另外10对室友。在聚会期间,侯哥对聚会上的每个人 (不包括他自己)进行调查,并询问每个人握了多少次手。假设握手符合以下条件:
+\begin{itemize}
+    \item[a)] 每个人都没有与室友握手
+    \item[b)] 每个人握手的次数都不同
+    \item[c)] 两个人最多只会握手一次
+\end{itemize}
+请问侯哥的室友小y在聚会中握了多少只手?
+
+\section*{2. 军训转圈圈}
+
+汇丰商学院的军训活动中,教官令100名同学横排站开。第一秒,教官喊口令"向左转”,然后同学们有的会左转、有的会右转,这样转完后一些同学会面对面;下一秒,这些面对面的同学都会向后转;再下一秒仍是如此。关于转动最终会不会结束,以下说法正确的是:
+\begin{itemize}
+    \item[A:] 转动一定会结束,最长持续时间100秒;
+    \item[B:] 转动一定会结束,最长持续时间200秒;
+    \item[C:] 转动有可能不会结束,一直持续下去的概率为1/100;
+    \item[D:] 转动有可能不会结束,一直持续下去的概率为1/10;
+\end{itemize}
+
+\section*{3. 联合正态分布的条件协方差}
+
+若 $x, y \sim N(0,1)$ i.i.d, 计算 $\text{Cov}(x, y | x+y > 0)$
+\\
+
+    根据定义，条件协方差为：
+    \[
+    \text{Cov}(x, y | x+y>0) = E[xy | x+y>0] - E[x | x+y>0]E[y | x+y>0]
+    \]
+
+    为了简化问题，我们引入新的变量：
+    \begin{align*}
+    u &= x + y \\
+    v &= x - y
+    \end{align*}
+    由于 $x$ 和 $y$ 是独立同分布的正态分布，$u$ 和 $v$ 也是正态分布。
+    \begin{itemize}
+        \item $E[u] = E[x] + E[y] = 0 + 0 = 0$
+        \item $E[v] = E[x] - E[y] = 0 - 0 = 0$
+        \item $Var(u) = Var(x+y) = Var(x) + Var(y) = 1 + 1 = 2$
+        \item $Var(v) = Var(x-y) = Var(x) + Var(y) = 1 + 1 = 2$
+        \item $Cov(u, v) = E[(x+y)(x-y)] - E[x+y]E[x-y] = E[x^2 - y^2] - 0 = E[x^2] - E[y^2] = 1 - 1 = 0$
+    \end{itemize}
+    因为 $u, v$ 是联合正态分布且协方差为0, 所以 $u, v$ 相互独立。我们得到：\\
+    $u \sim N(0, 2)$ 和 $v \sim N(0, 2)$。
+
+    原问题中的条件 $x+y > 0$ 现在可以写成 $u > 0$。我们将 $x, y$ 用 $u, v$ 表示：
+    \[ x = \frac{u+v}{2}, \quad y = \frac{u-v}{2} \]
+    $E[x | u>0] = E\left[\frac{u+v}{2} \bigg| u>0\right] = \frac{1}{2} (E[u | u>0] + E[v | u>0])$ \\
+    由于 $u, v$ 相互独立, 条件 $u>0$ 不影响 $v$ 的分布, 所以 $E[v | u>0] = E[v] = 0$。因此：
+    \[ E[x | u>0] = \frac{1}{2} E[u | u>0] \]
+    同理, $E[y | u>0] = \frac{1}{2} E[u | u>0]$。\\
+    对于一个变量 $Z \sim N(0, \sigma^2)$，其条件期望 $E[Z | Z>0] = \sigma \sqrt{\frac{2}{\pi}}$。
+    在我们的问题中，$u \sim N(0, 2)$，所以 $\sigma^2 = 2 \implies \sigma = \sqrt{2}$。
+    \[ E[u | u>0] = \sqrt{2} \cdot \sqrt{\frac{2}{\pi}} = \frac{2}{\sqrt{\pi}} \]
+    因此，
+    \[ E[x | x+y>0] = E[y | x+y>0] = \frac{1}{2} \cdot \frac{2}{\sqrt{\pi}} = \frac{1}{\sqrt{\pi}} \]
+    
+    接下来我们计算 $E[xy | u>0]$。
+    \[ xy = \frac{u^2 - v^2}{4} \]
+    \begin{align*}
+    E[xy | u>0] &= E\left[\frac{u^2 - v^2}{4} \bigg| u>0\right] \\
+    &= \frac{1}{4} (E[u^2 | u>0] - E[v^2 | u>0])
+    \end{align*}
+    由于 $u,v$ 独立, $E[v^2|u>0] = E[v^2] = Var(v) = 2$。\\
+    由于 $u \sim N(0,2)$ 的分布关于0对称, $E[u^2 | u>0] = E[u^2] = Var(u) = 2$。\\
+    所以，
+    \[ E[xy | u>0] = \frac{1}{4} (2 - 2) = 0 \]
+
+    将所有计算结果代入协方差公式：
+    \begin{align*}
+    \text{Cov}(x, y | x+y>0) &= E[xy | x+y>0] - E[x | x+y>0]E[y | x+y>0] \\
+    &= 0 - \left(\frac{1}{\sqrt{\pi}}\right)\left(\frac{1}{\sqrt{\pi}}\right) \\
+    &= - \frac{1}{\pi}
+    \end{align*}
+
+
+\section*{4. Chameleons Jump}
+
+There are 5 chameleons and they are initially sitting on red, blue, green, yellow and purple flowers repectively. For every 5 seconds, a random chameleon will jump to another random flower with at least one chameleon already there, and turn into that color. For how much time do we expect that they all change into the same color?
+
+
+我们的目标是计算从初始状态 $s_1$ 到达吸收态 $s_7$ 的期望步数。我们定义 $E_i$ 为从状态 $s_i$ 出发，首次到达吸收态 $s_7$ 所需要的平均步数。
+
+根据定义，我们有 $E_7 = 0$，因为从吸收态出发，到达吸收态需要0步。
+
+对于任何非吸收态 $s_i$，其期望吸收时间 $E_i$ 满足以下递推关系：
+\[
+E_i = 1 + \sum_{j=1}^{7} P_{ij} E_j
+\]
+其中，$P_{ij}$ 是从状态 $s_i$ 一步转移到状态 $s_j$ 的概率。下面我们对每个状态建立方程。
+
+\subsection*{状态 $s_1 = \{1, 1, 1, 1, 1\}$}
+\begin{itemize}
+    \item \textbf{分析}: 任意一次跳跃必然导致两种颜色合并，使状态转移到 $s_2 = \{2, 1, 1, 1\}$。
+    \item \textbf{转移概率}: $P_{12} = 1$。
+    \item \textbf{方程 (1)}: $E_1 = 1 + P_{12}E_2 = 1 + E_2$。
+\end{itemize}
+
+\subsection*{状态 $s_2 = \{2, 1, 1, 1\}$ (4种颜色)}
+\begin{itemize}
+    \item \textbf{分析}:
+        \begin{itemize}
+            \item 选中2只同色的变色龙之一（概率 $\frac{2}{5}$），它跳到另外3种颜色之一的花上。状态不变，仍为 $\{2,1,1,1\}$ ($s_2$)。所以 $P_{22} = \frac{2}{5}$。
+            \item 选中3只“单身”变色龙之一（概率 $\frac{3}{5}$）。它会跳到另外3种颜色的花上。
+                \begin{itemize}
+                    \item 有 $\frac{1}{3}$ 的概率跳到含2只变色龙的花上，形成 $\{3,1,1\}$ ($s_3$)。故 $P_{23} = \frac{3}{5} \times \frac{1}{3} = \frac{1}{5}$。
+                    \item 有 $\frac{2}{3}$ 的概率跳到另外2种单身颜色的花上，形成 $\{2,2,1\}$ ($s_4$)。故 $P_{24} = \frac{3}{5} \times \frac{2}{3} = \frac{2}{5}$。
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{方程 (2)}: $E_2 = 1 + \frac{2}{5}E_2 + \frac{1}{5}E_3 + \frac{2}{5}E_4 \implies \frac{3}{5}E_2 = 1 + \frac{1}{5}E_3 + \frac{2}{5}E_4$。
+\end{itemize}
+
+\subsection*{状态 $s_3 = \{3, 1, 1\}$ (3种颜色)}
+\begin{itemize}
+    \item \textbf{分析}: 有2朵另外的花可跳。
+        \begin{itemize}
+            \item 选中3只同色之一（概率 $\frac{3}{5}$），跳到2种单身颜色之一的花上，形成 $\{2,2,1\}$ ($s_4$)。故 $P_{34} = \frac{3}{5}$。
+            \item 选中2只单身之一（概率 $\frac{2}{5}$）。
+                \begin{itemize}
+                    \item 有 $\frac{1}{2}$ 概率跳到含3只变色龙的花上，形成 $\{4,1\}$ ($s_5$)。故 $P_{35} = \frac{2}{5} \times \frac{1}{2} = \frac{1}{5}$。
+                    \item 有 $\frac{1}{2}$ 概率跳到另一单身颜色的花上，形成 $\{3,2\}$ ($s_6$)。故 $P_{36} = \frac{2}{5} \times \frac{1}{2} = \frac{1}{5}$。
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{方程 (3)}: $E_3 = 1 + \frac{3}{5}E_4 + \frac{1}{5}E_5 + \frac{1}{5}E_6$。
+\end{itemize}
+
+\subsection*{状态 $s_4 = \{2, 2, 1\}$ (3种颜色)}
+\begin{itemize}
+    \item \textbf{分析}: 有2朵另外的花可跳。
+        \begin{itemize}
+            \item 选中唯一的单身（概率 $\frac{1}{5}$），跳到另外两种含2只变色龙的花上，形成 $\{3,2\}$ ($s_6$) 。故 $P_{46} = \frac{1}{5}$。
+            \item 选中4只非单身之一（概率 $\frac{4}{5}$）。
+                \begin{itemize}
+                    \item 有 $\frac{1}{2}$ 概率跳到另一组含2只变色龙的花上，形成 $\{3,1,1\}$ ($s_3$) 。故 $P_{43} = \frac{4}{5} \times \frac{1}{2} = \frac{2}{5}$。
+                    \item 有 $\frac{1}{2}$ 概率跳到含1只变色龙的花上，状态不变，仍为 $\{2,2,1\}$ ($s_4$) 。故 $P_{44} = \frac{4}{5} \times \frac{1}{2} = \frac{2}{5}$。
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{方程 (4)}: $E_4 = 1 + \frac{1}{5}E_6 + \frac{2}{5}E_3 + \frac{2}{5}E_4 \implies \frac{3}{5}E_4 = 1 + \frac{2}{5}E_3 + \frac{1}{5}E_6$。
+\end{itemize}
+
+
+\section*{5. 圆环上随机游走}
+
+\begin{enumerate}
+    \item 圆环上有n个点,一只蚂蚁从圆环的某点出发随机游走(即每一步有概率 $\frac{1}{2}$ 顺时针移动到相邻点, 有概率 $\frac{1}{2}$ 逆时针移动到相邻点),求蚂蚁走遍圆环上所有点位所需移动步数的期望?
+    \item 如果蚂蚁走遍圆环上所有点后立即停下,那么蚂蚁所停位置在圆环上的概率分布是怎样的?
+\end{enumerate}
+
+\section*{6. 猜测棋子位置}
+
+\begin{enumerate}
+    \item 一个棋子沿着数轴始终以固定速度向一个方向移动。假设起点已知,移动的方向未知,移动速度v为整数。你可以在每个时间点猜一次棋子位置,设计一个策略在可数的次数内猜出棋子位置
+    \item 假设棋子的起点未知,你会如何设计策略?
+\end{enumerate}
+
+\section*{7. 量化基金的超额回撤}
+
+某些公司在笔试中也会以问答题的形式考察候选人对行业整体的理解,例如以下的真题:
+描述一下你了解的中国量化私募过去五年比较大的行业性超额回撤(指大部分量化基金的超额收益同时发生较大回撤,不考虑大盘波动)。当时发生了什么,是什么原因,在你看来能否预警或者控制?
+
+\end{document}
