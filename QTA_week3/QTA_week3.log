@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.8.5)  9 AUG 2025 11:47
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.8.5)  9 AUG 2025 21:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -485,7 +485,8 @@ Package: xeCJK-listings 2022/08/05 v3.9.1 xeCJK patch file for listings
 ) (c:/texlive/2025/texmf-dist/tex/latex/marginnote/marginnote.sty
 Package: marginnote 2018/08/09 1.4b non floating margin notes for LaTeX
 \c@mn@abspage=\count335
-) (./QTA_week3.aux)
+)
+No file QTA_week3.aux.
 \openout1 = `QTA_week3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
@@ -561,7 +562,6 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 47.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 47.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -652,6 +652,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
 [4]
 
+c:/Users/ods/Desktop/2025PKUQTA/QTA_week3/QTA_week3.tex:291: Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.291     \end{align*}
+                      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+
 [5]
 
 [6]
@@ -671,10 +685,10 @@ L3 programming layer <2022/08/05>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 10850 strings out of 468442
- 274594 string characters out of 5449249
- 702805 words of memory out of 5000000
- 39145 multiletter control sequences out of 15000+600000
+ 10849 strings out of 468442
+ 274598 string characters out of 5449249
+ 697812 words of memory out of 5000000
+ 39146 multiletter control sequences out of 15000+600000
  636247 words of font info for 109 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,10n,111p,559b,370s stack positions out of 10000i,1000n,20000p,200000b,200000s
