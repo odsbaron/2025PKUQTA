@@ -1,0 +1,108 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    frame=single,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+
+\title{QTA Week 2 答案汇总}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{问题一}
+
+\textbf{答案：} $\mathbb{E}[N_{HH}] = 6$, $\mathbb{E}[N_{HT}] = 4$
+
+\textit{简析：} $N_{HH} = 2^1 + 2^2 = 6$; $N_{HT} = 2^2 = 4$
+
+
+\subsection*{问题二}
+
+\textbf{答案：} 18
+
+\textit{简析：} 模式 $HTHH$ 在 $k=1$ (H) 和 $k=4$ (HTHH) 时前后缀匹配。
+\[
+    \mathbb{E} = 2^1 + 2^4 = 2 + 16 = 18
+\]
+
+
+\subsection*{问题三}
+
+\textbf{答案：} 0.75 (或 75\%)
+
+\textit{简析：} Bob ($TH$) 只要第一枚是 T 则必胜 (0.5)；若第一枚是 H，只有第二枚是 T 时 Bob 才能赢 (0.25)。总概率 $0.5 + 0.25 = 0.75$。
+
+
+\subsection*{问题四}
+
+\textbf{答案：} 利用 $P(T)=0.4$ 和冯·诺依曼构造法 ($P=0.5$) 组合
+
+\textit{算法：}
+\begin{enumerate}
+    \item 抛一次硬币，若为 H (0.6) 则失败。
+    \item 若为 T (0.4)，则连续抛两次硬币：
+    \begin{itemize}
+        \item 若 $HT$：返回成功 (总概率 $0.4 \times 0.5 = 0.2$)
+        \item 若 $TH$：返回失败
+        \item 若 $HH$ 或 $TT$：重复步骤2直到出现 $HT$ 或 $TH$
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection*{问题五}
+
+\textbf{答案：} 498
+
+\textit{简析：} 全排列去重后为 606，减去以 0 开头的非法数字 108，得 498。
+
+
+\subsection*{问题六}
+
+\textbf{答案：} C
+
+\textit{简析：} 外层装饰器 \texttt{log\_execution} 未使用 \texttt{@wraps}，导致函数名和文档变为装饰器内部函数 \texttt{wrapper\_log} 的属性。
+
+
+\subsection*{问题七}
+
+\textbf{答案：} Python 动态规划解法
+
+\begin{lstlisting}
+def maxProfit(prices, D, fee):
+    n = len(prices)
+    hold = [-float('inf')] * n
+    sold = [-float('inf')] * n
+    max_pre_cool = 0
+
+    for i in range(n):
+        if i > D:
+            max_pre_cool = max(max_pre_cool, sold[i-D-1])
+
+        # Hold: 昨天持有 vs 今天买入(用解冻资金)
+        if i == 0:
+            hold[i] = -prices[i]
+        else:
+            hold[i] = max(hold[i-1], max_pre_cool - prices[i])
+
+        # Sold: 昨天持有 + 今天卖出
+        sold[i] = hold[i-1] + prices[i] - fee
+
+    return max(max(sold), 0)
+\end{lstlisting}
+
+\end{document}

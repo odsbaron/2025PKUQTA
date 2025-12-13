@@ -1,0 +1,243 @@
+\documentclass[11pt, a4paper]{ctexart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+% 统一颜色方案
+\definecolor{primarydark}{RGB}{41, 128, 185}
+\definecolor{primarylight}{RGB}{174, 214, 241}
+\definecolor{secondarydark}{RGB}{52, 73, 94}
+\definecolor{secondarylight}{RGB}{236, 240, 241}
+\definecolor{accentdark}{RGB}{230, 126, 34}
+\definecolor{accentlight}{RGB}{255, 242, 230}
+\definecolor{successdark}{RGB}{39, 174, 96}
+\definecolor{successlight}{RGB}{232, 248, 239}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+% 标题设置
+\title{\textbf{QTA笔面试刷题week1-答案}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*., itemsep=2.5em]
+
+    % 题目 1
+    \item \textbf{简单的抽球问题}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目}]
+    一个袋子里有4个红球、3个蓝球和2个黄球。随机不放回抽3个球，请问抽到的3个球至少有两种不同颜色的概率有多少？
+    \end{tcolorbox}
+
+    \textbf{解法：补集法}
+
+    总共有 $\binom{9}{3} = 84$ 种抽法。
+
+    "至少两种颜色"的反面是"只有一种颜色"：
+    \begin{itemize}[leftmargin=2em, itemsep=0.2em]
+        \item 3个红球：$\binom{4}{3} = 4$
+        \item 3个蓝球：$\binom{3}{3} = 1$
+        \item 3个黄球：不可能（只有2个）
+    \end{itemize}
+
+    概率：$P = 1 - \frac{5}{84} = \frac{79}{84} \approx 94.05\%$
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：}$\displaystyle \frac{79}{84}$
+    \end{tcolorbox}
+
+    % 题目 2
+    \item \textbf{切线段的极限和}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目}]
+    一条长度为1的线段，随机在中间切一刀，得到两部分$x$和$y$。把它们相乘并加到和里：$\text{sum} = x \cdot y$。再把$x$和$y$各自随机切一刀...如此重复操作。请问这个和的极限值是多少？
+    \end{tcolorbox}
+
+    \textbf{解法：递推关系}
+
+    设 $S(L)$ 为长度 $L$ 的线段经过无限次切割后的期望和。
+
+    \textbf{递推式：}长度为 $L$ 的线段随机切开，两段乘积的期望为 $\frac{L^2}{6}$（积分计算）。设 $S(L) = cL^2$（猜测形式），则：
+    \[
+    S(L) = \frac{L^2}{6} + 2\mathbb{E}[S(t)] = \frac{L^2}{6} + 2c \cdot \frac{L^2}{3}
+    \]
+
+    由 $S(L) = cL^2$，得：$c = \frac{1}{6} + \frac{2c}{3}$，解得 $c = \frac{1}{2}$
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：}$\displaystyle S(1) = \frac{1}{2}$
+    \end{tcolorbox}
+
+    % 题目 3
+    \item \textbf{年久失修的密码锁}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目}]
+    一个3位的密码锁，年久失修功能异常，只需要输入任意两位密码就能打开。最少需要尝试多少次？
+    \end{tcolorbox}
+
+    \textbf{解法：De Bruijn序列}
+
+    需要构造包含所有 $10^2 = 100$ 种两位数组合的最短序列。
+
+    \textbf{图论建模：}
+    \begin{itemize}[leftmargin=2em, itemsep=0.2em]
+        \item 顶点：10个数字 $\{0, 1, \ldots, 9\}$
+        \item 有向边：从 $i$ 到 $j$ 代表两位数 $ij$，共100条边
+        \item 问题等价于找欧拉回路（每条边恰好经过一次）
+    \end{itemize}
+
+    欧拉回路长度 = 边数 = 100，因此最少需要100次尝试。
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：}\textbf{100次}
+    \end{tcolorbox}
+
+    % 题目 4
+    \item \textbf{把守圆圈}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目}]
+    有一个100米半径的圆。超人站在圆心，速度为1米/秒。蝙蝠侠站在圆周上某一点。问：蝙蝠侠速度最低是什么值，才能使得超人无法逃出这个圆？
+    \end{tcolorbox}
+
+    \textbf{解法：狮子与人问题}
+
+    超人最优策略分两阶段：
+
+    \textbf{阶段1：}螺旋移动到半径 $r = \frac{R}{v_b} = \frac{100}{v_b}$ 处，此时双方角速度相等
+    \begin{itemize}[leftmargin=2em, itemsep=0.2em]
+        \item 超人角速度：$\omega_s = \frac{1}{r}$
+        \item 蝙蝠侠角速度：$\omega_b = \frac{v_b}{100}$
+        \item 相等条件：$r = \frac{100}{v_b}$
+    \end{itemize}
+
+    \textbf{阶段2：}超人从半径 $r$ 处直线冲向圆周（选择与蝙蝠侠相反方向）
+    \begin{itemize}[leftmargin=2em, itemsep=0.2em]
+        \item 超人冲刺距离：$100 - \frac{100}{v_b}$，耗时相同
+        \item 蝙蝠侠跑半圆：$100\pi$，耗时 $\frac{100\pi}{v_b}$
+    \end{itemize}
+
+    \textbf{临界条件：}$100 - \frac{100}{v_b} = \frac{100\pi}{v_b}$
+
+    解得：$v_b = 1 + \pi$
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：}$\displaystyle v_b = 1 + \pi \approx 4.14$ 米/秒
+    \end{tcolorbox}
+
+    % 题目 5
+    \item \textbf{快速排序的性质}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目（多选）}]
+    以下是快速排序的特性有：
+
+    \textbf{A.} 第一趟排序后，所有元素都在其最终位置上
+
+    \textbf{B.} 最坏情况时间复杂度为$O(n^2)$
+
+    \textbf{C.} 是不稳定的排序算法
+
+    \textbf{D.} 空间复杂度为$O(\log n)$到$O(n)$之间
+    \end{tcolorbox}
+
+    \textbf{逐项分析：}
+
+    \textbf{A. 错误} — 只有pivot元素在最终位置，其他元素不一定
+
+    \textbf{B. 正确} — 当每次pivot都是极值时（如已排序数组），递归深度为$n$，时间$O(n^2)$
+
+    \textbf{C. 正确} — 长距离交换可能改变相同元素的相对顺序，因此不稳定
+
+    \textbf{D. 正确} — 递归调用栈深度：最好$O(\log n)$（平衡），最坏$O(n)$（极度不平衡）
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：BCD}
+    \end{tcolorbox}
+
+    % 题目 6
+    \item \textbf{Expected Distinct Numbers}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目}]
+    Say you have $n$ numbers $\{1, 2, \ldots, n\}$, and you uniformly sample from this distribution \textbf{with replacement} $n$ times. What is the expected number of distinct values you would draw?
+    \end{tcolorbox}
+
+    \textbf{解法：指示随机变量法}
+
+    定义指示变量：$X_i = 1$ 当且仅当数字 $i$ 至少出现一次
+
+    不同数字总数：$X = \sum_{i=1}^{n} X_i$
+
+    \textbf{计算 $P(X_i = 1)$：}
+    \begin{align*}
+    P(X_i = 1) &= 1 - P(\text{数字}i\text{从未出现}) \\
+    &= 1 - \left(1 - \frac{1}{n}\right)^n
+    \end{align*}
+
+    由期望的线性性：
+    \[
+    \mathbb{E}[X] = n \cdot \left[1 - \left(1 - \frac{1}{n}\right)^n\right]
+    \]
+
+    当 $n \to \infty$ 时，$\left(1 - \frac{1}{n}\right)^n \to \frac{1}{e}$，因此：
+    \[
+    \mathbb{E}[X] \approx n\left(1 - \frac{1}{e}\right) \approx 0.632n
+    \]
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：}$\displaystyle n \left[1 - \left(1 - \frac{1}{n}\right)^n\right] \approx 0.632n$
+    \end{tcolorbox}
+
+    % 题目 7
+    \item \textbf{Arithmetic Subarrays}
+
+    \begin{tcolorbox}[colback=secondarylight, colframe=secondarydark, title=\textbf{题目}]
+    Given an integer array \texttt{nums}, return the number of arithmetic subarrays of \texttt{nums}.
+
+    （等差子数组：至少3个元素，相邻元素差相等）
+    \end{tcolorbox}
+
+    \textbf{解法：动态规划}
+
+    定义 $dp[i]$ = 以 $\texttt{nums}[i]$ 结尾的等差子数组个数
+
+    \textbf{状态转移：}
+    \[
+    dp[i] = \begin{cases}
+    dp[i-1] + 1, & \text{if } \texttt{nums}[i] - \texttt{nums}[i-1] = \texttt{nums}[i-1] - \texttt{nums}[i-2] \\
+    0, & \text{otherwise}
+    \end{cases}
+    \]
+
+    \textbf{举例：}\texttt{nums = [1, 2, 3, 4]}
+    \begin{itemize}[leftmargin=2em, itemsep=0.2em]
+        \item $dp[2] = 1$：新增 [1,2,3]
+        \item $dp[3] = 2$：新增 [2,3,4] 和 [1,2,3,4]
+        \item 总数 = $1 + 2 = 3$
+    \end{itemize}
+
+    \textbf{最终答案：}$\sum_{i=2}^{n-1} dp[i]$，时间 $O(n)$，空间 $O(1)$
+
+    \begin{tcolorbox}[colback=successlight, colframe=successdark]
+    \textbf{答案：}使用DP，$dp[i] = dp[i-1] + 1$ 或 $0$，累加求和
+    \end{tcolorbox}
+
+\end{enumerate}
+
+\vspace{2em}
+\hrule
+\vspace{1em}
+
+\begin{center}
+\large\textbf{总结}
+\end{center}
+
+
+\end{document}

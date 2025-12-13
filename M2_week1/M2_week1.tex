@@ -1,0 +1,79 @@
+\documentclass[11pt, a4paper]{ctexart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题设置
+\title{QTA笔面试刷题week1-题目}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*., itemsep=2em]
+
+    % 题目 1
+    \item \textbf{简单的抽球问题} \\
+    一个袋子里有4个红球、3个蓝球和2个黄球。随机不放回抽3个球，请问抽到的3个球至少有两种不同颜色的概率有多少？（可以尝试在1min之内口算出结果）
+
+    % 题目 2
+    \item \textbf{切线段的极限和} \\
+    一条长度为1的线段，随机在中间切一刀，得到两部分$x$和$y$。把它们相乘并加到和里：$sum=x \cdot y$。再把$x$和$y$各自随机切一刀，得到$x_1, x_2$及$y_1, y_2$，再将其乘积加到和里：$sum=xy+x_1 x_2+y_1 y_2 \dots$ 如此重复操作。请问这个和的极限值是多少？
+
+    % 题目 3
+    \item \textbf{年久失修的密码锁} \\
+    一个3位的密码锁，年久失修功能异常，只需要输入任意两位密码就能打开。最少需要尝试多少次？
+
+    % 题目 4
+    \item \textbf{把守圆圈} \\
+    有一个100米半径的圆。超人站在圆心。蝙蝠侠站在圆周上某一点。蝙蝠侠想抓住超人。由于圆的一些奇异性质，蝙蝠侠进不了这个圆，但可以以匀速在圆外面任意行走。在圆内超人可以以1米/秒速度任意行走，但一旦出了圆之后他就可以飞，并逃离蝙蝠侠。问：蝙蝠侠速度最低是什么值，才能使得超人无法逃出这个圆？
+
+    % 题目 5
+    \item \textbf{快速排序的性质} \\
+    （多选）以下是快速排序的特性有：
+    \begin{enumerate}[label=\Alph*., itemsep=0.5em]
+        \item 第一趟排序后任一元素都不能确定其最终位置
+        \item 最坏情况下的时间复杂度是 $O(n^2)$
+        \item 不是稳定排序
+        \item 最好空间复杂度 $O(\lg n)$，最坏空间复杂度 $O(n)$
+    \end{enumerate}
+
+    % 题目 6
+    \item \textbf{Expected Distinct Num} \\
+    Say you have $n$ numbers $1, \dots, n$, and you uniformly sample from this distribution with replacement $n$ times. \\
+    What is expected number of distinct values you would draw?
+
+    % 题目 7
+    \item \textbf{Arithmetic Subarrays Num} \\
+    An integer array is called arithmetic if it consists of at least three elements and if the difference between any two consecutive elements is the same. \\
+    For example, $[1,3,5,7,9]$, $[7,7,7,7]$, and $[3,-1,-5,-9]$ are arithmetic sequences. \\
+    Given an integer array \texttt{nums}, return the number of arithmetic subarrays of \texttt{nums}. \\
+    A subarray is a contiguous subsequence of the array.
+
+    \vspace{1em}
+    \textbf{Example 1:}
+    \begin{itemize}
+        \item Input: $\text{nums} = [1,2,3,4]$
+        \item Output: 3
+        \item Explanation: We have 3 arithmetic slices in nums: $[1, 2, 3]$, $[2, 3, 4]$ and $[1,2,3,4]$ itself.
+    \end{itemize}
+
+    \textbf{Example 2:}
+    \begin{itemize}
+        \item Input: $\text{nums} = [1]$
+        \item Output: 0
+    \end{itemize}
+
+    \textbf{Example 3:}
+    \begin{itemize}
+        \item Input: $\text{nums} = [1,2,3,4,6,8,10,12]$
+        \item Output: 0
+    \end{itemize}
+
+\end{enumerate}
+
+\end{document}

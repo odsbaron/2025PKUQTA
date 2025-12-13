@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xelatex:*)",
+      "Bash(pdflatex:*)",
+      "Bash(open M2_week1/M2_week1_solutions.pdf)",
+      "Bash(open:*)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,231 @@
+\documentclass[11pt, a4paper]{ctexart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% 代码高亮设置
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codebg}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    language=Python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% 定义数学符号
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% 标题信息
+\title{\textbf{QTA笔面试刷题week2-题目}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% Part 1
+% 题目背景框
+在金融交易中，我们监控一个二元信号流 $S = \{x_1, x_2, \dots\}$，其中 $x_i$ 独立服从伯努利分布 $x_i \sim \text{Bernoulli}(0.5)$（即 $P(H)=P(T)=0.5$）。
+
+\section*{问题一}
+假设我们需要检测长度为 2 的短信号。我们定义以下随机变量：
+\begin{itemize}
+    \item $N_{HH}$：序列中首次连续出现两个"正面"（HH）所需的观测次数。
+    \item $N_{HT}$：序列中首次出现"正面"紧接"反面"（HT）所需的观测次数。
+\end{itemize}
+
+\textbf{问题：}请分别计算期望值 $\E[N_{HH}]$ 和 $\E[N_{HT}]$。
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% Part 2
+\section*{问题二}
+现在考虑一个长度为 $L$ 的任意目标序列 pattern $A = (a_1, a_2, \dots, a_L)$。为了求解 $\E[N_A]$，我们引入一个\textbf{公平赌场模型（Fair Casino Model）}：
+
+\begin{quote}
+    假设每一时刻 $t=1, 2, \dots$ 都有一个新的赌徒进场。\\
+    第 $t$ 个赌徒在进场时押注 1 美元，赌 $x_t = a_1$。如果是公平赌局（赔率为 1:1），赢了变成 2 美元，输了变成 0。\\
+    如果赢了，他将 2 美元全押在下一时刻 $x_{t+1} = a_2$ 上，以此类推。\\
+    一旦输掉任何一次，赌徒破产离开。如果连续赢了 $L$ 次（即匹配了整个序列 $A$），赌场关闭。
+\end{quote}
+
+\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!75!black, title=\textbf{提示 (Hint)}]
+利用鞅（Martingale）的性质，可以证明对于任意长度为 $L$ 的二进制序列 $A$，其首次出现的期望时间公式为：
+\begin{equation*}
+    \E[N_A] = \sum_{k=1}^{L} \delta_k \cdot 2^k
+\end{equation*}
+其中 $\delta_k$ 是一个指示函数：当序列 $A$ 的长度为 $k$ 的\textbf{前缀}同时也是它的\textbf{后缀}时，$\delta_k=1$，否则 $\delta_k=0$。
+\end{tcolorbox}
+
+\textbf{问题：}利用上述公式，快速计算模式 \textbf{HTHH} 的期望等待时间，并可以简单写出上述hint的证明思路。
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% Part 3
+\section*{问题三}
+现在有两个交易员 Alice 和 Bob 分别选择不同的模式进行"抢跑"游戏。一旦信号流中出现了某人的模式，该人获胜，游戏结束。
+\begin{itemize}
+    \item Alice 选择了模式 $A = \text{H H}$。
+    \item Bob 选择了模式 $B = \text{T H}$。
+\end{itemize}
+
+\textbf{问题：}请问 Bob 获胜的概率（即 $B$ 先于 $A$ 出现的概率）是多少？（注意，这里不再是计算"期望时间"，而是计算\textbf{获胜概率}。）
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section*{问题四}
+一个硬币 0.6概率为正面，0.4概率为反面，如何构造一个发生概率为20\%的随机事件？
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section*{问题五}
+1,0,10,2,4,24 能组成多少个不同的八位数？
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section*{问题六}
+
+阅读以下 Python 代码，推断最后一行 \texttt{print} 语句的输出结果是哪一项？
+
+\begin{tcolorbox}[colback=white, colframe=black!75!black, title=\textbf{Code Snippet}]
+\begin{lstlisting}
+from functools import wraps
+
+def token_check(func):
+    """Decorator to check user tokens."""
+    @wraps(func)
+    def inner_check(*args, **kwargs):
+        return func(*args, **kwargs)
+    return inner_check
+
+def log_execution(func):
+    """Decorator to log function calls."""
+    # 注意：此处故意未使用 @wraps
+    def wrapper_log(*args, **kwargs):
+        """Wrapper for logging."""
+        return func(*args, **kwargs)
+    return wrapper_log
+
+@log_execution
+@token_check
+def fetch_data():
+    """Fetches data from database."""
+    pass
+
+print(f"{fetch_data.__name__} | {fetch_data.__doc__}")
+\end{lstlisting}
+\end{tcolorbox}
+
+\section*{选项}
+
+\begin{enumerate}[label=\Alph*., itemsep=1em]
+    \item \texttt{fetch\_data | Fetches data from database.}
+    \item \texttt{inner\_check | Fetches data from database.}
+    \item \texttt{wrapper\_log | Wrapper for logging.}
+    \item \texttt{wrapper\_log | Fetches data from database.}
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section*{问题七}
+
+\subsection*{题目背景}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black]
+    你正在为一个高频交易系统编写回测引擎。给定一个整数数组 \texttt{prices}，其中 $\text{prices}[i]$ 表示某支股票在第 $i$ 天的价格。
+
+    你需要设计一个算法来计算最大利润，并严格遵守交易所的结算制度与佣金模型。
+\end{tcolorbox}
+
+\subsection*{题目描述 (Problem Description)}
+
+请计算在满足以下所有规则的情况下，你能获得的最大利润：
+    
+    \begin{enumerate}[label=\arabic*., itemsep=0.5em]
+        \item \textbf{无限次交易}：你可以尽可能多地进行买卖交易（买入和卖出），但你必须在再次买入前卖出掉之前的股票（即手中最多只能持有一股）。
+        \item \textbf{交易成本}：每次\textbf{卖出}股票时，需要支付一笔固定的手续费 \texttt{fee}。
+        \item \textbf{结算延迟（冷却期）}：卖出股票后，需要等待 $D$ 天的资金结算期才能再次买入。
+        \begin{itemize}
+            \item 例如：如果你在第 $i$ 天卖出股票，那么你在第 $i+1, \dots, i+D$ 天都无法买入股票。
+            \item 你最早可以在第 $i + D + 1$ 天再次买入。
+        \end{itemize}
+    \end{enumerate}
+
+\subsection*{输入输出示例 (Examples)}
+
+\textbf{Example 1:}
+\begin{tcolorbox}[colback=codebg, boxrule=0pt, sharp corners, left=5pt]
+    \textbf{Input:} \texttt{prices = [1, 2, 3, 0, 2]}, \texttt{D = 1}, \texttt{fee = 0} \\
+    \textbf{Output:} \texttt{3} \\
+    \textbf{Explanation:} 
+    \begin{itemize}
+        \item 第0天买入 (price 1)，第1天卖出 (price 2)，利润 = $2 - 1 - 0 = 1$。
+        \item 第2天处于冷冻期 ($D=1$)，无法操作。
+        \item 第3天买入 (price 0)，第4天卖出 (price 2)，利润 = $2 - 0 - 0 = 2$。
+        \item 总利润 = $1 + 2 = 3$。
+    \end{itemize}
+    \end{tcolorbox}
+    
+    \textbf{Example 2:}
+\begin{tcolorbox}[colback=codebg, boxrule=0pt, sharp corners, left=5pt]
+    \textbf{Input:} \texttt{prices = [1, 5, 2, 4, 3]}, \texttt{D = 2}, \texttt{fee = 1} \\
+    \textbf{Output:} \texttt{3} \\
+    \textbf{Explanation:} 
+    \begin{itemize}
+        \item 第0天买入 (price 1)，第1天卖出 (price 5)。
+        \item 支付 fee = 1，本次净赚 $5 - 1 - 1 = 3$。
+        \item 卖出后进入2天冷却（第2、3天禁买）。
+        \item 之后无更优操作，总利润 3。
+    \end{itemize}
+\end{tcolorbox}
+
+\subsection*{约束条件 (Constraints)}
+\begin{itemize}
+    \item $1 \le \text{prices.length} \le 5 \times 10^4$
+    \item $0 \le \text{prices}[i] \le 5 \times 10^4$
+    \item $0 \le D \le \text{prices.length}$
+    \item $0 \le \text{fee} \le 5 \times 10^4$
+\end{itemize}
+
+\end{document}

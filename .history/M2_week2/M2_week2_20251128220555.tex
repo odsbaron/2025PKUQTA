@@ -1,0 +1,98 @@
+\documentclass[11pt, a4paper]{ctexart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% 定义数学符号
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% 标题信息
+\title{\textbf{QTA笔面试刷题week2-题目}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% 题目背景框
+在金融交易中，我们监控一个二元信号流 $S = \{x_1, x_2, \dots\}$，其中 $x_i$ 独立服从伯努利分布 $x_i \sim \text{Bernoulli}(0.5)$（即 $P(H)=P(T)=0.5$）。
+
+% Part 1
+\section*{问题一}
+假设我们需要检测长度为 2 的短信号。我们定义以下随机变量：
+\begin{itemize}
+    \item $N_{HH}$：序列中首次连续出现两个“正面”（HH）所需的观测次数。
+    \item $N_{HT}$：序列中首次出现“正面”紧接“反面”（HT）所需的观测次数。
+\end{itemize}
+
+\begin{enumerate}[label=\textbf{问题 1.\arabic*:}, leftmargin=3.5em]
+    \item 请分别计算期望值 $\E[N_{HH}]$ 和 $\E[N_{HT}]$。
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% Part 2
+\section*{问题二}
+现在考虑一个长度为 $L$ 的任意目标序列 pattern $A = (a_1, a_2, \dots, a_L)$。为了求解 $\E[N_A]$，我们引入一个\textbf{公平赌场模型（Fair Casino Model）}：
+
+\begin{quote}
+    假设每一时刻 $t=1, 2, \dots$ 都有一个新的赌徒进场。\\
+    第 $t$ 个赌徒在进场时押注 1 美元，赌 $x_t = a_1$。如果是公平赌局（赔率为 1:1），赢了变成 2 美元，输了变成 0。\\
+    如果赢了，他将 2 美元全押在下一时刻 $x_{t+1} = a_2$ 上，以此类推。\\
+    一旦输掉任何一次，赌徒破产离开。如果连续赢了 $L$ 次（即匹配了整个序列 $A$），赌场关闭。
+\end{quote}
+
+\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!75!black, title=\textbf{提示 (Hint)}]
+利用鞅（Martingale）的性质，可以证明对于任意长度为 $L$ 的二进制序列 $A$，其首次出现的期望时间公式为：
+\begin{equation*}
+    \E[N_A] = \sum_{k=1}^{L} \delta_k \cdot 2^k
+\end{equation*}
+其中 $\delta_k$ 是一个指示函数：当序列 $A$ 的长度为 $k$ 的\textbf{前缀}同时也是它的\textbf{后缀}时，$\delta_k=1$，否则 $\delta_k=0$。
+\end{tcolorbox}
+
+\begin{enumerate}[label=\textbf{问题 2}, leftmargin=3.5em]
+    \item 利用上述公式，快速计算模式 \textbf{HTHH} 的期望等待时间，并可以简单写出上述hint的证明思路。
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% Part 3
+\section*{问题三}
+现在有两个交易员 Alice 和 Bob 分别选择不同的模式进行“抢跑”游戏。一旦信号流中出现了某人的模式，该人获胜，游戏结束。
+\begin{itemize}
+    \item Alice 选择了模式 $A = \text{H H}$。
+    \item Bob 选择了模式 $B = \text{T H}$。
+\end{itemize}
+
+\begin{enumerate}[label=\textbf{问题 3}, leftmargin=3.5em]
+    \item 请问 Bob 获胜的概率（即 $B$ 先于 $A$ 出现的概率）是多少？（注意，这里不再是计算“期望时间”，而是计算\textbf{获胜概率}。）
+    
+   % \item 如果 Alice 选了 $HHH$，Bob 想要在这个非传递性游戏中占据优势（即获胜概率 $>0.5$），他应该选择什么长度为 3 的模式？\\
+   % \textit{（请直接给出结论，无需证明。）}
+\end{enumerate}
+
+\section*{问题四}
+一个硬币 0.6概率为正面，0.4概率为反面，如何构造一个发生概率为20\%的随机事件？
+
+
+\section*{问题五}
+1,0,10,2,4,24 能组成多少个不同的八位数？  
+
+
+
+\end{document}

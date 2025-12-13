@@ -1,0 +1,193 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 定义颜色
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\definecolor{answercolor}{rgb}{0.1,0.3,0.6}
+
+% 优化代码显示
+\lstset{
+    language=Python,
+    backgroundcolor=\color{backcolour},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    frame=single,
+    rulecolor=\color{black!30},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    captionpos=b
+}
+
+% 优化列表样式
+\setlist[enumerate]{itemsep=0.3em, parsep=0.2em, leftmargin=2em}
+\setlist[itemize]{itemsep=0.2em, parsep=0.1em, leftmargin=2em}
+
+% 优化章节标题样式
+\titleformat{\subsection}
+  {\normalfont\Large\bfseries\color{answercolor}}
+  {问题\thesubsection}{1em}{}
+
+\titlespacing*{\subsection}{0pt}{2em}{1em}
+
+\title{\textbf{QTA Week 2 答案汇总}}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\vspace{-1em}
+
+% ========== 问题一 ==========
+\subsection*{问题一}
+
+\noindent\textbf{答案：}
+\begin{equation*}
+    \mathbb{E}[N_{HH}] = 6, \quad \mathbb{E}[N_{HT}] = 4
+\end{equation*}
+
+\noindent\textit{简析：}\\
+根据前后缀匹配原理，$N_{HH} = 2^1 + 2^2 = 6$；$N_{HT} = 2^2 = 4$。
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+
+% ========== 问题二 ==========
+\subsection*{问题二}
+
+\noindent\textbf{答案：} 18
+
+\noindent\textit{简析：}\\
+模式 $HTHH$ 在 $k=1$ (H) 和 $k=4$ (HTHH) 时前后缀匹配。因此：
+\begin{equation*}
+    \mathbb{E}[N_{HTHH}] = 2^1 + 2^4 = 2 + 16 = 18
+\end{equation*}
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+
+% ========== 问题三 ==========
+\subsection*{问题三}
+
+\noindent\textbf{答案：} $0.75$ (或 $75\%$)
+
+\noindent\textit{简析：}\\
+Bob 的模式为 $TH$。分析如下：
+\begin{itemize}
+    \item 若第一枚是 T：Bob 必胜（概率 $0.5$）
+    \item 若第一枚是 H，第二枚是 T：Bob 胜（概率 $0.5 \times 0.5 = 0.25$）
+\end{itemize}
+总概率为 $P(\text{Bob 胜}) = 0.5 + 0.25 = 0.75$。
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+
+% ========== 问题四 ==========
+\subsection*{问题四}
+
+\noindent\textbf{答案：} 利用 $P(T)=0.4$ 和冯·诺依曼构造法组合
+
+\noindent\textit{算法流程：}
+\begin{enumerate}[leftmargin=2.5em]
+    \item 抛一次硬币：
+    \begin{itemize}
+        \item 若为 H（概率 $0.6$）：失败，重新开始
+        \item 若为 T（概率 $0.4$）：进入步骤 2
+    \end{itemize}
+
+    \item 连续抛两次硬币，使用冯·诺依曼方法：
+    \begin{itemize}
+        \item 若结果为 $HT$：返回成功（总概率 $0.4 \times 0.5 = 0.2$）
+        \item 若结果为 $TH$：返回失败
+        \item 若结果为 $HH$ 或 $TT$：重复步骤 2，直到出现 $HT$ 或 $TH$
+    \end{itemize}
+\end{enumerate}
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+
+% ========== 问题五 ==========
+\subsection*{问题五}
+
+\noindent\textbf{答案：} $498$
+
+\noindent\textit{简析：}\\
+考虑数字 $\{0, 0, 1, 2, 3, 4\}$ 的全排列：
+\begin{itemize}
+    \item 全排列去重后：$606$ 个
+    \item 减去以 $0$ 开头的非法数字：$108$ 个
+    \item 最终结果：$606 - 108 = 498$
+\end{itemize}
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+
+% ========== 问题六 ==========
+\subsection*{问题六}
+
+\noindent\textbf{答案：} \textbf{C}
+
+\noindent\textit{简析：}\\
+外层装饰器 \texttt{log\_execution} 未使用 \texttt{@wraps(func)}，导致被装饰函数的 \texttt{\_\_name\_\_} 和 \texttt{\_\_doc\_\_} 属性被覆盖为装饰器内部函数 \texttt{wrapper\_log} 的属性。
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+
+% ========== 问题七 ==========
+\subsection*{问题七}
+
+\noindent\textbf{答案：} Python 动态规划解法
+
+\vspace{0.5em}
+\noindent\textit{核心思路：}\\
+使用动态规划维护两个状态数组：\texttt{hold}（持有股票）和 \texttt{sold}（已卖出）。考虑冷冻期 $D$ 天的约束。
+
+\begin{lstlisting}
+def maxProfit(prices, D, fee):
+    n = len(prices)
+    if n == 0:
+        return 0
+
+    # hold[i]: 第i天持有股票的最大收益
+    # cool[i]: 第i天不持有股票的最大收益
+    hold = [-float('inf')] * n
+    cool = [0] * n
+
+    hold[0] = -prices[0]
+
+    for i in range(1, n):
+        # 今天持有 = max(昨天持有, 从冷冻期结束后买入)
+        if i > D:
+            hold[i] = max(hold[i-1], cool[i-D-1] - prices[i])
+        else:
+            # 冷冻期内只能从初始状态买入
+            hold[i] = max(hold[i-1], -prices[i])
+
+        # 今天不持有 = max(昨天不持有, 今天卖出)
+        cool[i] = max(cool[i-1], hold[i-1] + prices[i] - fee)
+
+    return max(0, cool[n-1])
+\end{lstlisting}
+
+\noindent\textit{时间复杂度：} $O(n)$；\textit{空间复杂度：} $O(n)$
+
+\end{document}
