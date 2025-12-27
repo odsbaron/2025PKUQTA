@@ -33,13 +33,12 @@
 \lstset{style=mystyle}
 
 \title{\textbf{QTA 笔面试刷题 Week 5 解析}}
-\author{QTA}
+\author{欧岱松}
 \date{December 2025}
 
 \begin{document}
 
 \maketitle
-\tableofcontents
 \newpage
 
 \section{相关系数为 $\rho$ 的取值范围}
@@ -101,9 +100,13 @@ $$n_{\text{红}}\equiv2,\quad n_{\text{绿}}\equiv0,\quad n_{\text{蓝}}\equiv1 
 证明任意基于比较的排序算法，最坏情况时间复杂度下界为 $O(n\log n)$。
 
 \subsection{证明}
-用决策树刻画比较排序，对 $n$ 个元素共有 $n!$ 种排列，必须对应 $n!$ 个叶子。二叉决策树高度为 $h$ 时叶子最多 $2^h$ 个，因此需 $2^h\ge n!$，得 $h\ge\log_2(n!)$。由斯特林公式 $\ln(n!)\approx n\ln n-n$ 可知 $\log_2(n!)$ 量级为 $n\log n$，故最坏情况比较次数下界为 $\Omega(n\log n)$。
+用决策树刻画比较排序，对 $n$ 个元素共有 $n!$ 种排列，必须对应 $n!$ 个叶子。
+二叉决策树高度为 $h$ 时叶子最多 $2^h$ 个，
+因此需 $2^h\ge n!$，得 $h\ge\log_2(n!)$。
+由斯特林公式 $\ln(n!)\approx n\ln n-n$ 
+可知 $\log_2(n!)$ 量级为 $n\log n$，故最坏情况比较次数下界为 $O(n\log n)$。
 
-\textbf{结论：} 最坏时间下界 $\Omega(n\log n)$。
+\textbf{结论：} 最坏时间下界 $O(n\log n)$。
 
 \section{交易逆序对总数}
 
