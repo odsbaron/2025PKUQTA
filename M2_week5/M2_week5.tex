@@ -45,7 +45,7 @@
 \section{相关系数为 $\rho$ 的取值范围}
 
 \subsection{题目描述}
-设随机变量 $X, Y, Z$ 两两相关系数均为 $\rho$，相关矩阵
+设随机变量 $X, Y, Z$ 两两相关系数均为 $\rho$，其相关矩阵
 $$
 R = \begin{pmatrix}
 1 & \rho & \rho \\
@@ -56,13 +56,7 @@ $$
 要求矩阵半正定，求 $\rho$ 的范围。
 
 \subsection{解答与推导}
-$R$ 可写成 $R = (1-\rho)I + \rho J$，其中 $I$ 为单位阵、$J$ 为全 1 阵。全 1 阵在三维下的特征值是 $3$（重数 1）和 $0$（重数 2），因此
-\begin{align*}
-    \lambda_1 &= (1-\rho)+3\rho = 1+2\rho,\\
-    \lambda_2 &= 1-\rho,\\
-    \lambda_3 &= 1-\rho\text{。}
-\end{align*}
-半正定要求所有特征值非负，于是 $1+2\rho \ge 0$ 且 $1-\rho \ge 0$，得到 $-\tfrac{1}{2} \le \rho \le 1$。
+$R$ 可写成 $R = (1-\rho)I + \rho J$，全 1 阵在三维的特征值是 $3$（重数 1）和 $0$（重数 2），因此 $R$ 的特征值直接为 $1+2\rho,\,1-\rho,\,1-\rho$。半正定只需这些特征值非负，$1+2\rho \ge 0,\,1-\rho \ge 0$，解得 $-\tfrac{1}{2} \le \rho \le 1$。
 
 \textbf{结论：} $\rho \in [-\tfrac{1}{2}, 1]$。
 
