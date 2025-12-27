@@ -4,7 +4,6 @@
 \usepackage{geometry}
 \usepackage{listings}
 \usepackage{xcolor}
-\usepackage{fancyhdr}
 
 \geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
 
@@ -33,7 +32,7 @@
 }
 \lstset{style=mystyle}
 
-\title{\textbf{QTA 笔面试刷题 Week 5 完整解析}}
+\title{\textbf{QTA 笔面试刷题 Week 5 解析}}
 \author{QTA}
 \date{December 2025}
 
@@ -46,7 +45,7 @@
 \section{相关系数为 $\rho$ 的取值范围}
 
 \subsection{题目描述}
-设随机变量 $X, Y, Z$ 两两相关系数均为 $\rho$，其相关矩阵为
+设随机变量 $X, Y, Z$ 两两相关系数均为 $\rho$，相关矩阵
 $$
 R = \begin{pmatrix}
 1 & \rho & \rho \\
@@ -54,84 +53,71 @@ R = \begin{pmatrix}
 \rho & \rho & 1
 \end{pmatrix}
 $$
-要求联合随机变量的相关矩阵半正定（即 $R \succeq 0$），求 $\rho$ 的取值范围。
+要求矩阵半正定，求 $\rho$ 的范围。
 
 \subsection{解答与推导}
-矩阵 $R$ 可写为 $R = (1-\rho)I + \rho J$，其中 $I$ 是 $3 \times 3$ 的单位矩阵，$J$ 是全 1 矩阵。全 1 矩阵 $J_{3 \times 3}$ 的特征值是 $3$（重数 1，对应特征向量 $[1,1,1]^T$）和 $0$（重数 2），代入线性组合得到
+$R$ 可写成 $R = (1-\rho)I + \rho J$，其中 $I$ 为单位阵、$J$ 为全 1 阵。全 1 阵在三维下的特征值是 $3$（重数 1）和 $0$（重数 2），因此
 \begin{align*}
-    \lambda_1 &= (1-\rho) + 3\rho = 1 + 2\rho, \\
-    \lambda_2 &= (1-\rho) + 0 = 1 - \rho, \\
-    \lambda_3 &= (1-\rho) + 0 = 1 - \rho\text{。}
+    \lambda_1 &= (1-\rho)+3\rho = 1+2\rho,\\
+    \lambda_2 &= 1-\rho,\\
+    \lambda_3 &= 1-\rho\text{。}
 \end{align*}
-半正定要求所有特征值非负，因而 $\lambda_i \ge 0$ 给出
-\begin{cases}
-    1 + 2\rho \ge 0 \implies \rho \ge -\frac{1}{2}, \\
-    1 - \rho \ge 0 \implies \rho \le 1\text{。}
-\end{cases}
+半正定要求所有特征值非负，于是 $1+2\rho \ge 0$ 且 $1-\rho \ge 0$，得到 $-\tfrac{1}{2} \le \rho \le 1$。
 
-\textbf{结论：} $\rho$ 的取值范围是 $[-\frac{1}{2}, 1]$。
+\textbf{结论：} $\rho \in [-\tfrac{1}{2}, 1]$。
 
-\section{掷出连续 6 个 6 的期望投掷次数}
+\section{连续 6 个 6 的期望投掷次数}
 
 \subsection{题目描述}
-一个均匀的骰子，掷出连续 6 个 6 的期望次数是多少？
+公平骰子掷到连续 6 个 6 的期望投掷次数。
 
 \subsection{解答与推导}
-记 $E_n$ 为掷出连续 $n$ 个 6 所需的期望次数。把状态视为“已连中 $n-1$ 个 6”，此时再掷一次必然增加 1 次尝试：若结果是 6（概率 $1/6$）直接达成连续 $n$ 个 6；若不是 6（概率 $5/6$）连击被清零，又回到重新追求 $E_n$ 的过程。全期望公式写为
-$$ E_n = E_{n-1} + 1 + \frac{5}{6}E_n \quad\Rightarrow\quad E_n = 6E_{n-1} + 6. $$
-已知 $E_0 = 0$，得到
-\begin{align*}
-    E_1 &= 6,\\
-    E_2 &= 6^2 + 6,\\
-    E_3 &= 6^3 + 6^2 + 6,\\
-    &\dots\\
-    E_6 &= \sum_{i=1}^{6} 6^i = \frac{6(1-6^6)}{1-6} = 55986\text{。}
-\end{align*}
+设 $E_n$ 为达成连续 $n$ 个 6 的期望掷数。已连到 $n-1$ 个 6 时再掷一次，先付出 1 次尝试；若掷出 6（概率 $1/6$）则直接完成，若不是 6（概率 $5/6$）连击清零，又要重新经历期望为 $E_n$ 的过程。全期望给出
+$$E_n = E_{n-1} + 1 + \frac{5}{6}E_n \quad\Rightarrow\quad E_n = 6E_{n-1} + 6,$$
+且 $E_0=0$。递推可得 $E_n=\sum_{i=1}^n 6^i$，于是
+$$E_6 = \frac{6(1-6^6)}{1-6} = 55986.$$
 
-\textbf{结论：} 期望需要 55986 次。
+\textbf{结论：} 期望掷数为 55986。
 
 \section{随机落座（疯子坐飞机）}
 
 \subsection{题目描述}
-$N$ 个座位，第一人（“疯子”）随机就座。之后正常人若座位空着就坐，否则随机就座。求第 $N$ 个人坐到自己座位的概率。
+第 1 人随机就座，其余人如果自己的座位空则入座，否则随机。求第 $N$ 人坐对的概率。
 
 \subsection{解答与推导}
-除去第 1 人和第 $N$ 人，其他人只有在“被迫随机”时才会打乱秩序，而这种随机会把空位集继续留给后面的人。混乱只可能在 1 号座位或 $N$ 号座位终止：若某次随机落在 1 号座位，后续人人归位，最终第 $N$ 个人必然坐对；若落在 $N$ 号座位，则第 $N$ 个人必然坐错；落在其他编号则把同样的局面递给下一人。因为 1 号与 $N$ 号在整个过程中被随机选中的机会始终对称，最终停在 1 号与停在 $N$ 号的概率相等，各为 $\frac{1}{2}$。
+混乱只在第 1 人被迫随机时出现，此后每当有人随机就座，空位集合只会在“1 号座位”和“$N$ 号座位”之间传递，直到其中之一被选中才结束：若先被选中的是 1 号，则后续人人归位，$N$ 人坐对；若先被选中的是 $N$ 号，则 $N$ 人坐错；落在其他编号只是在把同样的局面递给下一个人。1 号与 $N$ 号被率先选中的概率全程对称，因此各为 $\tfrac12$。
 
 \textbf{结论：} 第 $N$ 个人坐对的概率为 $0.5$。
 
 \section{外星生物颜色}
 
 \subsection{题目描述}
-初始红 20、绿 21、蓝 22。规则：两种不同颜色 $\to$ 生成两个第三种颜色。问最终能否全部变成同一种颜色？
+初始红 20、绿 21、蓝 22。规则：两种不同颜色变为两个第三种颜色。问能否最终全为同一种颜色。
 
 \subsection{解答与推导}
-设三色数量为 $n_1, n_2, n_3$。一次操作使两种颜色各减 1、第三种加 2，对应增量向量 $(-1,-1,+2)$ 及其排列，模 3 都等价于为每个颜色数加 2。于是模 3 下任意两色的差保持不变：
-\begin{align*}
-    (n_1-1)-(n_2-1)&=n_1-n_2,\\
-    (n_1-1)-(n_3+2)&=n_1-n_3-3\equiv n_1-n_3 \pmod 3\text{，其余同理。}
-\end{align*}
-初态有 $n_{\text{红}}=20\equiv 2,\,n_{\text{绿}}=21\equiv 0,\,n_{\text{蓝}}=22\equiv 1$，两两差模 3 分别为 $2,1,1$，均非 0。若最终全为同色，则任意两色数量差应为 0（模 3 亦为 0），与不变量矛盾，因而无法达成。
+设三色数量为 $n_1,n_2,n_3$。一次操作让其中两色各减 1、第三色加 2，模 3 等价于所有颜色数同时加 2，因此任意两色数量差在模 3 下保持不变。初始
+$$n_{\text{红}}\equiv2,\quad n_{\text{绿}}\equiv0,\quad n_{\text{蓝}}\equiv1 \pmod 3,$$
+两两之差模 3 分别为 $2,1,1$，都不为 0。若最终全为同色则任意差为 0（模 3 也为 0），与不变量冲突，故无法实现。
 
-\textbf{结论：} 不可能全部变成同一种颜色。
+\textbf{结论：} 不可能变成同一种颜色。
 
-\section{比较排序的时间复杂度}
+\section{比较排序的时间复杂度下界}
 
 \subsection{题目描述}
-证明任何基于比较的排序算法，最坏情况时间复杂度下界为 $O(n \log n)$。
+证明任意基于比较的排序算法，最坏情况时间复杂度下界为 $O(n\log n)$。
 
 \subsection{证明}
-用决策树模型描述比较排序：对 $n$ 个待排序元素，所有排列共有 $n!$ 种，算法需要通过比较把输入引到对应的叶子节点。每次比较把可能性空间一分为二，于是决策树是一棵二叉树，最坏情况下的比较次数对应树高 $h$，而拥有 $2^h$ 个叶子才能覆盖全部 $n!$ 个排列，所以 $2^h \ge n!$。取对数得 $h \ge \log_2(n!)$，利用斯特林公式 $\ln(n!) \approx n\ln n - n$，可知 $\log_2(n!)$ 量级为 $n \log_2 n$，从而得出最坏情况下界 $\Omega(n \log n)$。
+用决策树刻画比较排序，对 $n$ 个元素共有 $n!$ 种排列，必须对应 $n!$ 个叶子。二叉决策树高度为 $h$ 时叶子最多 $2^h$ 个，因此需 $2^h\ge n!$，得 $h\ge\log_2(n!)$。由斯特林公式 $\ln(n!)\approx n\ln n-n$ 可知 $\log_2(n!)$ 量级为 $n\log n$，故最坏情况比较次数下界为 $\Omega(n\log n)$。
 
-\textbf{结论：} 任意比较排序的最坏时间复杂度下界为 $\Omega(n \log n)$。
+\textbf{结论：} 最坏时间下界 $\Omega(n\log n)$。
 
 \section{交易逆序对总数}
 
 \subsection{题目描述}
-输入股票记录，若前一天股价高于后一天股价，则构成“交易逆序对”。数据范围 $N \le 50000$，求逆序对总数。
+给定股票价格序列，若前一天价格高于后一天则构成逆序对。$N\le 50000$，求逆序对总数。
 
 \subsection{解答与算法}
-暴力双层循环是 $O(N^2)$，需改用 $O(N \log N)$。在归并排序的 `merge` 阶段，左右子数组已各自有序：当遇到左侧元素 $L[i] > R[j]$ 时，$L[i]$ 及其之后的 $(\text{mid}-i+1)$ 个元素都大于 $R[j]$，一次性贡献同样数量的逆序对，再把 $R[j]$ 写入临时数组继续归并。这样在合并过程中顺带累加逆序对即可。
+暴力为 $O(N^2)$，需用 $O(N\log N)$。在归并排序的合并阶段，左右子数组有序；当遇到左侧元素 $L[i]>R[j]$，则 $L[i]$ 以及其后的 $(\text{mid}-i+1)$ 个元素都大于 $R[j]$，一次性贡献同样数量的逆序对，然后写入 $R[j]$ 继续归并。累积计数即可得到总数。
 
 \subsection{代码实现 (Python)}
 
@@ -145,7 +131,6 @@ class Solution:
     def merge_sort(self, nums, left, right):
         if left >= right:
             return
-        
         mid = (left + right) // 2
         self.merge_sort(nums, left, mid)
         self.merge_sort(nums, mid + 1, right)
@@ -154,26 +139,18 @@ class Solution:
     def merge(self, nums, left, mid, right):
         temp = []
         i, j = left, mid + 1
-        
         while i <= mid and j <= right:
             if nums[i] <= nums[j]:
-                temp.append(nums[i])
-                i += 1
+                temp.append(nums[i]); i += 1
             else:
-                # 逆序对：左侧剩余元素都大于 nums[j]
                 self.count += (mid - i + 1)
-                temp.append(nums[j])
-                j += 1
-        
+                temp.append(nums[j]); j += 1
         while i <= mid:
-            temp.append(nums[i])
-            i += 1
+            temp.append(nums[i]); i += 1
         while j <= right:
-            temp.append(nums[j])
-            j += 1
-            
-        for k in range(len(temp)):
-            nums[left + k] = temp[k]
+            temp.append(nums[j]); j += 1
+        for k, v in enumerate(temp):
+            nums[left + k] = v
 \end{lstlisting}
 
 \end{document}
