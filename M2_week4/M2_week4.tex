@@ -1,0 +1,214 @@
+% !TEX program = xelatex
+% !TEX encoding = UTF-8
+
+\documentclass[12pt, a4paper]{article}
+
+% --- 宏包配置 ---
+\usepackage[UTF8]{ctex}           % 中文支持
+\usepackage{geometry}             % 页面布局
+\usepackage{amsmath, amssymb}     % 数学公式
+\usepackage{graphicx}             % 图片支持
+\usepackage{xcolor}               % 颜色支持
+\usepackage{listings}             % 代码高亮
+\usepackage{tikz}                 % 绘图支持
+\usepackage{fancyhdr}             % 页眉页脚
+
+% --- 页面设置 ---
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Week 4 QTA 笔试题解}
+\rhead{\today}
+\cfoot{\thepage}
+
+% --- 代码块样式定义 ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{black!20}
+}
+\lstset{style=pystyle}
+
+% --- 文档开始 ---
+\begin{document}
+
+\title{\textbf{Week 4 QTA 笔试题标准题解}}
+\author{欧岱松}
+\date{\today}
+\maketitle
+
+\section*{1. 必胜策略 I (博弈论)}
+
+\subsubsection*{解答}
+\textbf{结论：先手必胜。}
+
+\textbf{答案：}
+先手玩家首先取走最中间的 \textbf{1} 个积木，将 31 个积木分解为左右两段完全独立的部分。
+
+每段各 15 个，此时局面处于完全对称状态。此后，无论后手玩家在左边的一堆进行什么操作（取走 $x$ 个，或将堆切分），先手玩家只需在右边的一堆执行完全相同的镜像操作。由于局面对称，只要后手玩家能进行合法移动，先手玩家必然能在另一侧进行对应的合法移动，因此最后一个积木一定会被先手玩家拿走。
+
+\vspace{1cm}
+
+\section*{2. 切割木棍 (几何概率)}
+
+\subsubsection*{解答}
+\textbf{答案：$1/4$ (25\%)。}
+
+设木棍总长为 1，两个切点位置分别为 $x, y$，且 $x, y \sim U(0,1)$。
+不失一般性，设 $x < y$，则三段长度为 $x$，$y-x$，$1-y$。
+
+构成三角形的充要条件是任意两边之和大于第三边，等价于\textbf{任意一边长度 $< \frac{1}{2}$}，即：
+$$x < \frac{1}{2}, \quad y-x < \frac{1}{2}, \quad 1-y < \frac{1}{2}$$
+化简得：$x < \frac{1}{2}$，$y < x + \frac{1}{2}$，$y > \frac{1}{2}$。
+
+由对称性，在 $(x,y)$ 平面上，可行域由两个对称的三角形组成。
+
+
+在单位正方形面积中，满足条件的区域由两个底和高均为 0.5 的小三角形组成：
+$$ S = 2 \times \left( \frac{1}{2} \times 0.5 \times 0.5 \right) = 0.25 $$
+
+\newpage
+
+\section*{3. 球的放法 (排列组合)}
+
+\subsubsection*{解答}
+\textbf{答案：256 种。}
+
+\textbf{分步计数：}
+
+设绿盒中放入 $g$ 个球，其中 $0 \le g \le 30$，则剩余 $r = 30 - g$ 个球需要放入两个\textbf{相同}的红盒。设两红盒球数为 $a, b$，满足 $a+b=r$ 且 $a \le b$。对于给定的 $r$，方案数为 $N_r = \lfloor r/2 \rfloor + 1$：当 $r$ 为偶数时，可分配方案为 $(0, r), (1, r-1), \ldots, (r/2, r/2)$，共 $r/2 + 1$ 种；当 $r$ 为奇数时，可分配方案为 $(0, r), (1, r-1), \ldots, (\lfloor r/2 \rfloor, \lceil r/2 \rceil)$，共 $\lfloor r/2 \rfloor + 1$ 种。因此总方案数为 $\text{Sum} = \sum_{r=0}^{30} (\lfloor r/2 \rfloor + 1)$。
+
+\textbf{计算过程：}
+\begin{align*}
+\text{Sum} &= \underbrace{(1+1)}_{r=0,1} + \underbrace{(2+2)}_{r=2,3} + \underbrace{(3+3)}_{r=4,5} + \cdots + \underbrace{(15+15)}_{r=28,29} + \underbrace{16}_{r=30} \\
+    &= 2 \times (1 + 2 + 3 + \cdots + 15) + 16 \\
+    &= 2 \times \frac{15 \times 16}{2} + 16 \\
+    &= 2 \times 120 + 16 = 256
+\end{align*}
+
+\section*{4. 必胜策略 II}
+
+\subsubsection*{解答}
+\textbf{结论：蝙蝠侠存在必胜策略。}
+
+\textbf{核心逻辑：}
+超人的轨迹完全由初始位置 $x_0$ 和速度 $v$ 决定，位置函数为 $x(t) = x_0 + vt$。
+因为 $x_0, v \in \mathbb{Z}$，所有可能的参数对集合 $S = \mathbb{Z} \times \mathbb{Z}$ 是\textbf{可数集}。
+
+\textbf{必胜策略构造：}
+
+首先将所有可能的整数对 $(x_0, v)$ 按对角线法排列成序列 $P_1, P_2, P_3, \ldots$。在第 $t$ 时刻，蝙蝠侠假设超人参数为序列中第 $t$ 个参数对 $P_t = (x_0^{(t)}, v^{(t)})$，并计算射击位置 $\text{Pos}_t = x_0^{(t)} + v^{(t)} \times t$。因为超人的真实参数对 $(x_0^*, v^*)$ 必然在序列的某一位 $k$ 出现（即 $P_k = (x_0^*, v^*)$），所以蝙蝠侠最晚在第 $k$ 回合击中目标。
+
+
+
+\vspace{1cm}
+
+\section*{5. Brownian Motion }
+
+\subsubsection*{解答}
+根据 $q$ 与 $a$ 的大小关系分两种情况讨论：
+
+\textbf{情形 1：$0 < q < a$}
+
+已知起点 $B(0)=0$ 和终点 $B(a)=b$，求中间时刻 $B(q)$ 的条件分布。
+
+根据布朗桥性质，在给定两端点的条件下，中间点的值呈线性插值，并有额外的随机波动：
+\begin{align*}
+E[B(q) \mid B(a)=b] &= \frac{q}{a} \cdot b \\[0.5em]
+\text{Var}(B(q) \mid B(a)=b) &= \frac{q(a-q)}{a}
+\end{align*}
+
+\vspace{0.5cm}
+
+\textbf{情形 2：$q > a$}
+
+已知 $B(a)=b$，求未来时刻 $B(q)$ 的条件分布。
+
+利用布朗运动的独立增量性质：$B(q) = B(a) + \underbrace{(B(q)-B(a))}_{\text{独立于} B(a)}$
+
+因为 $B(q)-B(a) \sim \mathcal{N}(0, q-a)$ 且独立于 $B(a)$，所以：
+\begin{align*}
+E[B(q) \mid B(a)=b] &= b + E[B(q)-B(a)] = b + 0 = b \\[0.5em]
+\text{Var}(B(q) \mid B(a)=b) &= \text{Var}(B(q)-B(a)) = q - a
+\end{align*}
+
+\newpage
+
+\section*{6. 广播机制 }
+
+\subsubsection*{解答}
+\textbf{答案：(2, 3, 3) 选B}
+
+\section*{7. 接雨水 (算法)}
+
+\subsubsection*{解答}
+\textbf{算法步骤：}
+\begin{enumerate}
+    \item 使用动态规划预处理每个位置的\textbf{左侧最高点}和\textbf{右侧最高点}。
+    \item 对每个位置，计算能蓄水的高度（木桶短板原理）。
+    \item 将蓄水高度乘以对应宽度，累加得到总体积。
+\end{enumerate}
+
+\textbf{Python 参考实现：}
+\begin{lstlisting}[language=Python]
+def trap_rain_weighted(heights, widths):
+    """
+    计算加权接雨水问题的总体积
+
+    参数:
+        heights: 高度数组
+        widths: 宽度数组
+    返回:
+        总蓄水体积
+    """
+    n = len(heights)
+    if n == 0:
+        return 0
+
+    # 计算每个位置左侧的最大高度
+    left_max = [0] * n
+    left_max[0] = heights[0]
+    for i in range(1, n):
+        left_max[i] = max(left_max[i-1], heights[i])
+
+    # 计算每个位置右侧的最大高度
+    right_max = [0] * n
+    right_max[n-1] = heights[n-1]
+    for i in range(n-2, -1, -1):
+        right_max[i] = max(right_max[i+1], heights[i])
+
+    # 计算总蓄水量
+    total_water = 0
+    for i in range(n):
+
+        water_level = min(left_max[i], right_max[i])
+        # 当前位置的蓄水深度
+        depth = max(0, water_level - heights[i])
+        # 累加体积：深度 × 宽度
+        total_water += depth * widths[i]
+
+    return total_water
+\end{lstlisting}
+
+\end{document}
