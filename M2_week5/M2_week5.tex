@@ -1,41 +1,38 @@
 \documentclass[11pt, a4paper]{article}
-\usepackage[UTF8]{ctex} % 支持中文
-\usepackage{amsmath, amssymb, amsthm} % 数学公式库
-\usepackage{geometry} % 页面设置
-\usepackage{listings} % 代码块支持
-\usepackage{xcolor} % 颜色支持
-\usepackage{fancyhdr} % 页眉页脚
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
 
-% 页面边距设置
 \geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
 
-% 代码块样式设置
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
+    backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
 \lstset{style=mystyle}
 
-% 标题信息
 \title{\textbf{QTA 笔面试刷题 Week 5 完整解析}}
 \author{QTA}
 \date{December 2025}
@@ -49,36 +46,28 @@
 \section{相关系数为 $\rho$ 的取值范围}
 
 \subsection{题目描述}
-设随机变量 $X, Y, Z$ 两两相关系数均为 $\rho$，则其相关矩阵为：
+设随机变量 $X, Y, Z$ 两两相关系数均为 $\rho$，其相关矩阵为
 $$
-R = \begin{pmatrix} 
-1 & \rho & \rho \\ 
-\rho & 1 & \rho \\ 
-\rho & \rho & 1 
+R = \begin{pmatrix}
+1 & \rho & \rho \\
+\rho & 1 & \rho \\
+\rho & \rho & 1
 \end{pmatrix}
 $$
-要求联合随机变量的相关矩阵为半正定（即 $R \succeq 0$），求 $\rho$ 的取值范围。
+要求联合随机变量的相关矩阵半正定（即 $R \succeq 0$），求 $\rho$ 的取值范围。
 
 \subsection{解答与推导}
-矩阵 $R$ 可以写成 $R = (1-\rho)I + \rho J$，其中 $I$ 是 $3 \times 3$ 的单位矩阵，$J$ 是全 1 矩阵。
-
-\begin{enumerate}
-    \item \textbf{求解特征值：}
-    全 1 矩阵 $J_{3 \times 3}$ 的特征值为 $3$（重数为1，对应特征向量 $[1,1,1]^T$）和 $0$（重数为2）。
-    因此，矩阵 $R$ 的特征值 $\lambda$ 为：
-    \begin{align*}
-        \lambda_1 &= (1-\rho) \cdot 1 + \rho \cdot 3 = 1 + 2\rho \\
-        \lambda_2 &= (1-\rho) \cdot 1 + \rho \cdot 0 = 1 - \rho \\
-        \lambda_3 &= (1-\rho) \cdot 1 + \rho \cdot 0 = 1 - \rho
-    \end{align*}
-
-    \item \textbf{半正定条件：}
-    矩阵半正定要求所有特征值非负，即 $\lambda_i \ge 0$：
-    \begin{cases}
-        1 + 2\rho \ge 0 \implies \rho \ge -\frac{1}{2} \\
-        1 - \rho \ge 0 \implies \rho \le 1
-    \end{cases}
-\end{enumerate}
+矩阵 $R$ 可写为 $R = (1-\rho)I + \rho J$，其中 $I$ 是 $3 \times 3$ 的单位矩阵，$J$ 是全 1 矩阵。全 1 矩阵 $J_{3 \times 3}$ 的特征值是 $3$（重数 1，对应特征向量 $[1,1,1]^T$）和 $0$（重数 2），代入线性组合得到
+\begin{align*}
+    \lambda_1 &= (1-\rho) + 3\rho = 1 + 2\rho, \\
+    \lambda_2 &= (1-\rho) + 0 = 1 - \rho, \\
+    \lambda_3 &= (1-\rho) + 0 = 1 - \rho\text{。}
+\end{align*}
+半正定要求所有特征值非负，因而 $\lambda_i \ge 0$ 给出
+\begin{cases}
+    1 + 2\rho \ge 0 \implies \rho \ge -\frac{1}{2}, \\
+    1 - \rho \ge 0 \implies \rho \le 1\text{。}
+\end{cases}
 
 \textbf{结论：} $\rho$ 的取值范围是 $[-\frac{1}{2}, 1]$。
 
@@ -88,123 +77,61 @@ $$
 一个均匀的骰子，掷出连续 6 个 6 的期望次数是多少？
 
 \subsection{解答与推导}
-设 $E_n$ 为掷出连续 $n$ 个 6 所需的期望次数。
-我们可以建立递推关系：
-\begin{itemize}
-    \item 假设我们已经掷出了连续 $n-1$ 个 6（耗费期望 $E_{n-1}$ 次）。
-    \item 再掷一次（第 $E_{n-1} + 1$ 次）：
-    \begin{itemize}
-        \item 如果是 6（概率 $1/6$），则达成连续 $n$ 个 6，结束。
-        \item 如果不是 6（概率 $5/6$），则连续中断，一切从头开始（需要重新掷 $E_n$ 次）。
-    \end{itemize}
-\end{itemize}
-
-根据全期望公式：
-$$ E_n = E_{n-1} + 1 + \frac{1}{6}(0) + \frac{5}{6}(E_n) $$
-化简得：
-$$ \frac{1}{6}E_n = E_{n-1} + 1 \implies E_n = 6E_{n-1} + 6 $$
-
-已知 $E_0 = 0$，则：
+记 $E_n$ 为掷出连续 $n$ 个 6 所需的期望次数。把状态视为“已连中 $n-1$ 个 6”，此时再掷一次必然增加 1 次尝试：若结果是 6（概率 $1/6$）直接达成连续 $n$ 个 6；若不是 6（概率 $5/6$）连击被清零，又回到重新追求 $E_n$ 的过程。全期望公式写为
+$$ E_n = E_{n-1} + 1 + \frac{5}{6}E_n \quad\Rightarrow\quad E_n = 6E_{n-1} + 6. $$
+已知 $E_0 = 0$，得到
 \begin{align*}
-    E_1 &= 6 \\
-    E_2 &= 6(6) + 6 = 6^2 + 6 \\
-    E_3 &= 6(6^2 + 6) + 6 = 6^3 + 6^2 + 6 \\
-    &\dots \\
-    E_6 &= \sum_{i=1}^{6} 6^i
+    E_1 &= 6,\\
+    E_2 &= 6^2 + 6,\\
+    E_3 &= 6^3 + 6^2 + 6,\\
+    &\dots\\
+    E_6 &= \sum_{i=1}^{6} 6^i = \frac{6(1-6^6)}{1-6} = 55986\text{。}
 \end{align*}
 
-计算等比数列求和：
-$$ E_6 = \frac{6(1-6^6)}{1-6} = \frac{6(46656-1)}{5} = 55986 $$
-
-\textbf{结论：} 期望次数为 55986 次。
+\textbf{结论：} 期望需要 55986 次。
 
 \section{随机落座（疯子坐飞机）}
 
 \subsection{题目描述}
-$N$ 个座位，第 1 人（精神病）随机坐。后续正常人若座位空着就坐，被占则随机坐。求第 $N$ 个人坐到自己座位的概率。
+$N$ 个座位，第一人（“疯子”）随机就座。之后正常人若座位空着就坐，否则随机就座。求第 $N$ 个人坐到自己座位的概率。
 
 \subsection{解答与推导}
-考虑第 1 个座位和第 $N$ 个座位的对称性。对于任何一个人（从第 1 人到第 $N-1$ 人），如果他需要随机选择座位：
-\begin{itemize}
-    \item 若选中 **1号座位**：由于1号座位对应的是那个“导致混乱的源头”（第1个人本该坐的位置），一旦1号座位被填满，后续所有人都可以坐回自己的位置，包括第 $N$ 个人。
-    \item 若选中 **$N$号座位**：第 $N$ 个人的位置被占，第 $N$ 个人必输。
-    \item 若选中 **其他座位**（$2$ 到 $N-1$）：混乱继续传递给下一个人。
-\end{itemize}
+除去第 1 人和第 $N$ 人，其他人只有在“被迫随机”时才会打乱秩序，而这种随机会把空位集继续留给后面的人。混乱只可能在 1 号座位或 $N$ 号座位终止：若某次随机落在 1 号座位，后续人人归位，最终第 $N$ 个人必然坐对；若落在 $N$ 号座位，则第 $N$ 个人必然坐错；落在其他编号则把同样的局面递给下一人。因为 1 号与 $N$ 号在整个过程中被随机选中的机会始终对称，最终停在 1 号与停在 $N$ 号的概率相等，各为 $\frac{1}{2}$。
 
-直到游戏结束前，**1号座位**和**$N$号座位**在空座位集合中被选中的概率始终是相等的。因此，在这两个座位中，1号座位先被选中的概率等于$N$号座位先被选中的概率。
-
-$$ P(\text{第N人坐对}) = P(\text{1号座位先于N号座位被选中}) = \frac{1}{2} $$
-
-\textbf{结论：} 概率为 $0.5$。
+\textbf{结论：} 第 $N$ 个人坐对的概率为 $0.5$。
 
 \section{外星生物颜色}
 
 \subsection{题目描述}
-红20，绿21，蓝22。规则：2个不同色 $\to$ 2个第三种色。问是否可能最后全为一种颜色？
+初始红 20、绿 21、蓝 22。规则：两种不同颜色 $\to$ 生成两个第三种颜色。问最终能否全部变成同一种颜色？
 
 \subsection{解答与推导}
-设三种颜色的数量分别为 $n_1, n_2, n_3$。每次变换（例如红+绿$\to$蓝），数量变化向量为 $(-1, -1, +2)$。
-考察模 3 的不变量。注意每次变化中：
-$$ \Delta n_i \equiv -1 \equiv 2 \pmod 3 \quad \text{或} \quad \Delta n_i = +2 \equiv 2 \pmod 3 $$
-这意味着在模 3 意义下，所有颜色的数量都在同时增加 2。
-更关键的不变量是**任意两种颜色的数量之差**（模 3）：
+设三色数量为 $n_1, n_2, n_3$。一次操作使两种颜色各减 1、第三种加 2，对应增量向量 $(-1,-1,+2)$ 及其排列，模 3 都等价于为每个颜色数加 2。于是模 3 下任意两色的差保持不变：
 \begin{align*}
-    (n_1 - 1) - (n_2 - 1) &= n_1 - n_2 \\
-    (n_1 - 1) - (n_3 + 2) &= n_1 - n_3 - 3 \equiv n_1 - n_3 \pmod 3
+    (n_1-1)-(n_2-1)&=n_1-n_2,\\
+    (n_1-1)-(n_3+2)&=n_1-n_3-3\equiv n_1-n_3 \pmod 3\text{，其余同理。}
 \end{align*}
-即：**任意两种颜色的数量差在模 3 下保持不变。**
+初态有 $n_{\text{红}}=20\equiv 2,\,n_{\text{绿}}=21\equiv 0,\,n_{\text{蓝}}=22\equiv 1$，两两差模 3 分别为 $2,1,1$，均非 0。若最终全为同色，则任意两色数量差应为 0（模 3 亦为 0），与不变量矛盾，因而无法达成。
 
-初始状态：
-$$ n_{\text{红}}=20 \equiv 2, \quad n_{\text{绿}}=21 \equiv 0, \quad n_{\text{蓝}}=22 \equiv 1 $$
-两两之差模 3 分别为 $2, 1, 1$（均不为 0）。
-
-目标状态（假设全变成蓝色）：
-$$ n_{\text{红}}=0, \quad n_{\text{绿}}=0, \quad n_{\text{蓝}}=63 $$
-此时 $n_{\text{红}} - n_{\text{绿}} = 0 \equiv 0 \pmod 3$。
-
-由于初始状态 $n_{\text{红}} - n_{\text{绿}} = -1 \equiv 2 \neq 0$，故无法达到目标状态。
-
-\textbf{结论：} 不可能。
+\textbf{结论：} 不可能全部变成同一种颜色。
 
 \section{比较排序的时间复杂度}
 
 \subsection{题目描述}
-证明任何基于比较的排序算法，其最坏情况下的时间复杂度下界为 $O(n \log n)$。
+证明任何基于比较的排序算法，最坏情况时间复杂度下界为 $O(n \log n)$。
 
 \subsection{证明}
-利用决策树模型（Decision Tree Model）：
-\begin{enumerate}
-    \item 对于 $n$ 个待排序元素，其全排列共有 $n!$ 种情况，这些是排序算法必须区分的输出状态（叶子节点）。
-    \item 比较排序的每一步操作（比较 $a < b$）将可能性空间一分为二。这就构成了一棵二叉树。
-    \item 设树的高度为 $h$（对应最坏情况下的比较次数）。二叉树最多有 $2^h$ 个叶子节点。
-    \item 为了覆盖所有可能的排列，必须满足：
-    $$ 2^h \ge n! $$
-    \item 两边取对数：
-    $$ h \ge \log_2(n!) $$
-    \item 根据斯特林公式（Stirling's Formula），$\ln(n!) \approx n \ln n - n$。
-    $$ \log_2(n!) \approx n \log_2 n $$
-\end{enumerate}
+用决策树模型描述比较排序：对 $n$ 个待排序元素，所有排列共有 $n!$ 种，算法需要通过比较把输入引到对应的叶子节点。每次比较把可能性空间一分为二，于是决策树是一棵二叉树，最坏情况下的比较次数对应树高 $h$，而拥有 $2^h$ 个叶子才能覆盖全部 $n!$ 个排列，所以 $2^h \ge n!$。取对数得 $h \ge \log_2(n!)$，利用斯特林公式 $\ln(n!) \approx n\ln n - n$，可知 $\log_2(n!)$ 量级为 $n \log_2 n$，从而得出最坏情况下界 $\Omega(n \log n)$。
 
-\textbf{结论：} 下界为 $\Omega(n \log n)$。
+\textbf{结论：} 任意比较排序的最坏时间复杂度下界为 $\Omega(n \log n)$。
 
 \section{交易逆序对总数}
 
 \subsection{题目描述}
-输入股票记录，若前一天股价高于后一天股价，则构成“交易逆序对”。求逆序对总数。
-数据范围：$N \le 50000$。
+输入股票记录，若前一天股价高于后一天股价，则构成“交易逆序对”。数据范围 $N \le 50000$，求逆序对总数。
 
 \subsection{解答与算法}
-直接使用双重循环暴力求解的复杂度是 $O(N^2)$，对于 $N=50000$ 会超时。必须使用 $O(N \log N)$ 的解法，通常使用**归并排序（Merge Sort）**的改版。
-
-\textbf{算法思路：}
-在归并排序的 `merge` 阶段：
-\begin{itemize}
-    \item 假设我们将左右两个有序数组 `L` 和 `R` 合并。
-    \item 双指针 `i` 指向 `L`，`j` 指向 `R`。
-    \item 如果 $L[i] > R[j]$：说明 $L[i]$ 比 $R[j]$ 大。
-    \item 关键点：因为 `L` 是有序的，所以 $L[i]$ 之后的所有元素（共 `mid - i + 1` 个）都必定大于 $R[j]$。
-    \item 这些都构成了逆序对，将数量加到总数中，并将 $R[j]$ 放入临时数组。
-\end{itemize}
+暴力双层循环是 $O(N^2)$，需改用 $O(N \log N)$。在归并排序的 `merge` 阶段，左右子数组已各自有序：当遇到左侧元素 $L[i] > R[j]$ 时，$L[i]$ 及其之后的 $(\text{mid}-i+1)$ 个元素都大于 $R[j]$，一次性贡献同样数量的逆序对，再把 $R[j]$ 写入临时数组继续归并。这样在合并过程中顺带累加逆序对即可。
 
 \subsection{代码实现 (Python)}
 
@@ -233,13 +160,11 @@ class Solution:
                 temp.append(nums[i])
                 i += 1
             else:
-                # 发现逆序对：nums[i] > nums[j]
-                # 左边数组中，从 i 到 mid 的所有元素都比 nums[j] 大
+                # 逆序对：左侧剩余元素都大于 nums[j]
                 self.count += (mid - i + 1)
                 temp.append(nums[j])
                 j += 1
         
-        # 处理剩余元素
         while i <= mid:
             temp.append(nums[i])
             i += 1
@@ -247,7 +172,6 @@ class Solution:
             temp.append(nums[j])
             j += 1
             
-        # 拷回原数组
         for k in range(len(temp)):
             nums[left + k] = temp[k]
 \end{lstlisting}
